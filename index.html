@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LaunchModel — Find Your Perfect Online Business</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #06060d;
+      --surface: rgba(255,255,255,0.025);
+      --border: rgba(255,255,255,0.07);
+      --border-accent: rgba(99,102,241,0.4);
+      --accent: #6366f1;
+      --accent2: #8b5cf6;
+      --accent3: #06b6d4;
+      --green: #10b981;
+      --red: #f87171;
+      --text: #f0f0f8;
+      --text-muted: #52576b;
+      --text-dim: #8b92a8;
+    }
+    body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; overflow-x:hidden; }
+
+    /* BG */
+    .bg-grid { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+    .bg-grid::before { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(99,102,241,0.045) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,0.045) 1px,transparent 1px); background-size:48px 48px; mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 100%); }
+    .bg-grid::after { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 50% at 15% 15%,rgba(99,102,241,0.1) 0%,transparent 55%),radial-gradient(ellipse 50% 60% at 85% 80%,rgba(139,92,246,0.08) 0%,transparent 55%),radial-gradient(ellipse 40% 40% at 50% 50%,rgba(6,182,212,0.04) 0%,transparent 60%); animation:auraPulse 10s ease-in-out infinite alternate; }
+    @keyframes auraPulse { 0%{opacity:.5;transform:scale(1)} 100%{opacity:1;transform:scale(1.06)} }
+    .orb { position:fixed; border-radius:50%; filter:blur(80px); pointer-events:none; z-index:0; animation:orbFloat 14s ease-in-out infinite alternate; }
+    .orb-1 { width:400px;height:400px;background:rgba(99,102,241,0.07);top:-100px;left:-100px; }
+    .orb-2 { width:300px;height:300px;background:rgba(139,92,246,0.07);bottom:-80px;right:-80px;animation-delay:-5s; }
+    .orb-3 { width:200px;height:200px;background:rgba(6,182,212,0.05);top:50%;left:60%;animation-delay:-3s; }
+    @keyframes orbFloat { 0%{transform:translate(0,0) scale(1)} 100%{transform:translate(30px,20px) scale(1.1)} }
+    body::after { content:''; position:fixed; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.025) 2px,rgba(0,0,0,0.025) 4px); pointer-events:none; z-index:0; }
+
+    .app { max-width:700px; margin:0 auto; padding:40px 20px 100px; position:relative; z-index:1; }
+
+    /* HERO */
+    .hero { text-align:center; padding:90px 0 70px; }
+    .hero-eyebrow { display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent3);border:1px solid rgba(6,182,212,.2);background:rgba(6,182,212,.06);padding:6px 16px;border-radius:100px;margin-bottom:32px;animation:fadeUp .5s ease both; }
+    .pulse { width:6px;height:6px;border-radius:50%;background:var(--accent3);box-shadow:0 0 6px var(--accent3);animation:blink 1.5s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .hero h1 { font-family:'Space Grotesk','Inter',sans-serif;font-size:clamp(38px,7vw,64px);font-weight:700;line-height:1.0;letter-spacing:-.02em;margin-bottom:22px;animation:fadeUp .5s .1s ease both; }
+    .line-white { color:#f0f0f8;display:block; }
+    .line-grad { display:block;background:linear-gradient(90deg,#6366f1 0%,#a78bfa 40%,#06b6d4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+    .hero p { font-size:17px;color:var(--text-dim);line-height:1.75;max-width:460px;margin:0 auto 40px;animation:fadeUp .5s .2s ease both; }
+    .btn-start { position:relative;display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;padding:15px 40px;border-radius:12px;border:none;cursor:pointer;transition:all .2s;box-shadow:0 0 40px rgba(99,102,241,.3),inset 0 1px 0 rgba(255,255,255,.15);letter-spacing:.01em;animation:fadeUp .5s .3s ease both; }
+    .btn-start:hover { transform:translateY(-2px);box-shadow:0 0 60px rgba(99,102,241,.5),inset 0 1px 0 rgba(255,255,255,.15); }
+    .social-proof { display:flex;align-items:center;justify-content:center;gap:16px;margin-top:28px;font-size:12px;color:var(--text-muted);animation:fadeUp .5s .4s ease both;flex-wrap:wrap; }
+    .social-proof span { display:flex;align-items:center;gap:5px; }
+    .sep { width:3px;height:3px;background:#1f2937;border-radius:50%; }
+
+    /* QUIZ */
+    .quiz { display:none; }
+    .progress-dots { display:flex;align-items:center;justify-content:center;gap:5px;margin-bottom:52px; }
+    .dot-step { height:4px;border-radius:100px;background:rgba(255,255,255,.08);transition:all .35s ease;width:18px; }
+    .dot-step.done { background:rgba(99,102,241,.5);width:18px; }
+    .dot-step.active { background:linear-gradient(90deg,var(--accent),var(--accent2));width:32px;box-shadow:0 0 10px rgba(99,102,241,.5); }
+    .question-counter { font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;text-align:center; }
+    .question-text { font-family:'Space Grotesk','Inter',sans-serif;font-size:clamp(22px,4vw,28px);font-weight:700;line-height:1.25;letter-spacing:-.01em;margin-bottom:28px;color:#f0f0f8; }
+    .options { display:flex;flex-direction:column;gap:10px; }
+    .option { position:relative;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:14px;padding:15px 18px;cursor:pointer;transition:all .18s;font-size:14px;font-family:'Inter',sans-serif;color:var(--text-dim);text-align:left;display:flex;align-items:center;gap:14px;width:100%;overflow:hidden; }
+    .option::after { content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(99,102,241,.06),rgba(6,182,212,.03));opacity:0;transition:opacity .18s; }
+    .option:hover { border-color:rgba(99,102,241,.35);color:var(--text);transform:translateX(3px); }
+    .option:hover::after { opacity:1; }
+    .option.selected { border-color:var(--accent);background:rgba(99,102,241,.1);color:var(--text);box-shadow:0 0 20px rgba(99,102,241,.1); }
+    .option.selected::after { opacity:1; }
+    .option-letter { width:28px;height:28px;border-radius:8px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--text-muted);flex-shrink:0;transition:all .18s;position:relative;z-index:1; }
+    .option.selected .option-letter { background:var(--accent);border-color:var(--accent);color:white; }
+    .option.selected .option-letter-char { display:none; }
+    .option.selected .option-letter::after { content:'✓';font-size:13px; }
+    .option-label { position:relative;z-index:1;font-weight:500;line-height:1.4; }
+    .nav-buttons { display:flex;justify-content:space-between;align-items:center;margin-top:32px; }
+    .btn-back { background:transparent;border:1px solid rgba(255,255,255,.08);color:var(--text-muted);padding:11px 22px;border-radius:10px;cursor:pointer;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;transition:all .15s;letter-spacing:.02em; }
+    .btn-back:hover { border-color:rgba(255,255,255,.15);color:var(--text); }
+    .btn-next { background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;border:none;padding:12px 30px;border-radius:10px;cursor:pointer;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;transition:all .2s;opacity:.3;pointer-events:none;letter-spacing:.02em; }
+    .btn-next.active { opacity:1;pointer-events:all; }
+    .btn-next.active:hover { transform:translateY(-2px);box-shadow:0 8px 28px rgba(99,102,241,.4); }
+
+    /* RESULT */
+    .result { display:none; }
+    .result-header { text-align:center;padding:64px 0 48px; }
+    .match-badge { display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(99,102,241,.15),rgba(6,182,212,.1));border:1px solid rgba(99,102,241,.3);padding:8px 20px;border-radius:100px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#a5b4fc;margin-bottom:28px; }
+    .match-badge .star { color:#fbbf24;font-size:14px; }
+    .result-emoji { font-size:60px;display:block;margin-bottom:14px; }
+    .result-name { font-family:'Space Grotesk','Inter',sans-serif;font-size:clamp(32px,6vw,52px);font-weight:700;letter-spacing:-.02em;background:linear-gradient(90deg,#fff 0%,#c4b5fd 55%,#67e8f9 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;line-height:1.1; }
+    .result-tagline { font-size:17px;color:var(--text-dim);margin-bottom:0; }
+    .tech-divider { display:flex;align-items:center;gap:12px;margin:32px 0;opacity:.3; }
+    .tech-divider::before,.tech-divider::after { content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(99,102,241,.5),transparent); }
+    .tech-divider-icon { font-size:12px;color:var(--accent); }
+
+    /* Cards */
+    .glass-card { background:rgba(255,255,255,.025);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:18px;padding:26px;margin-bottom:14px;position:relative;overflow:hidden; }
+    .glass-card::before { content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent); }
+    .glass-card h3 { font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--text-muted);margin-bottom:14px;display:flex;align-items:center;gap:8px; }
+    .glass-card h3::before { content:'▸';color:var(--accent); }
+    .result-desc { font-size:15px;color:var(--text-dim);line-height:1.8; }
+    .stats-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px; }
+    .stat-box { background:rgba(255,255,255,.025);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:14px;padding:18px 20px;position:relative;overflow:hidden; }
+    .stat-box::after { content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent3));opacity:.3; }
+    .stat-label { font-size:10px;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px; }
+    .stat-value { font-size:15px;font-weight:700;color:#f9fafb;font-family:'Space Grotesk',sans-serif; }
+    .pros-cons { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px; }
+    .pros,.cons { background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:14px;padding:18px; }
+    .pros { border-top:2px solid rgba(16,185,129,.3); }
+    .cons { border-top:2px solid rgba(248,113,113,.3); }
+    .pros h3 { font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#34d399;margin-bottom:12px; }
+    .pros h3::before,.cons h3::before { content:none; }
+    .cons h3 { font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#f87171;margin-bottom:12px; }
+    .pros li,.cons li { font-size:13px;color:var(--text-dim);margin-left:14px;margin-bottom:6px;line-height:1.5; }
+    .next-steps-card { background:linear-gradient(135deg,rgba(99,102,241,.07),rgba(6,182,212,.04));border:1px solid rgba(99,102,241,.18);border-radius:18px;padding:26px;margin-bottom:14px;position:relative;overflow:hidden; }
+    .next-steps-card::before { content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(99,102,241,.4),transparent); }
+    .next-steps-card h3 { font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:#a5b4fc;margin-bottom:18px;display:flex;align-items:center;gap:8px; }
+    .next-steps-card h3::before { content:'▸';color:var(--accent2); }
+    .step { display:flex;align-items:flex-start;gap:14px;margin-bottom:14px; }
+    .step-num { width:26px;height:26px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:white;flex-shrink:0;box-shadow:0 0 12px rgba(99,102,241,.3); }
+    .step-text { font-size:14px;color:var(--text-dim);line-height:1.55;padding-top:4px; }
+    .score-breakdown { background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:18px;padding:26px;margin-bottom:14px; }
+    .score-breakdown h3 { font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--text-muted);margin-bottom:20px;display:flex;align-items:center;gap:8px; }
+    .score-breakdown h3::before { content:'▸';color:var(--accent); }
+    .score-row { display:flex;align-items:center;gap:12px;margin-bottom:10px; }
+    .score-model { width:160px;font-size:12px;font-weight:600;color:var(--text-dim);flex-shrink:0; }
+    .score-bar-wrap { flex:1;background:rgba(255,255,255,.04);border-radius:100px;height:6px;overflow:hidden; }
+    .score-bar { height:100%;border-radius:100px;background:rgba(255,255,255,.08);transition:width 1.2s cubic-bezier(.4,0,.2,1); }
+    .score-bar.winner { background:linear-gradient(90deg,var(--accent),var(--accent3));box-shadow:0 0 8px rgba(99,102,241,.4); }
+    .score-num { width:32px;text-align:right;font-size:12px;font-weight:700;color:var(--text-muted);font-family:'Space Grotesk',sans-serif; }
+
+    /* PROMPT CHAIN */
+    .prompt-chain-wrap { background:linear-gradient(135deg,rgba(6,182,212,.05),rgba(99,102,241,.06));border:1px solid rgba(6,182,212,.18);border-radius:18px;padding:26px;margin-bottom:14px;position:relative;overflow:hidden; }
+    .prompt-chain-wrap::before { content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(6,182,212,.4),transparent); }
+    .prompt-chain-title { font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:#67e8f9;margin-bottom:4px;display:flex;align-items:center;gap:8px; }
+    .prompt-chain-title::before { content:'▸';color:var(--accent3); }
+    .prompt-chain-desc { font-size:13px;color:var(--text-muted);margin-bottom:22px;line-height:1.6; }
+    .prompt-item { background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.07);border-radius:14px;margin-bottom:12px;overflow:hidden; }
+    .prompt-item-header { display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;user-select:none;transition:background .15s; }
+    .prompt-item-header:hover { background:rgba(255,255,255,.03); }
+    .prompt-item-left { display:flex;align-items:center;gap:12px; }
+    .prompt-num { width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:white;flex-shrink:0;box-shadow:0 0 10px rgba(99,102,241,.3); }
+    .prompt-label { font-size:13px;font-weight:700;color:var(--text);letter-spacing:.01em; }
+    .prompt-sublabel { font-size:11px;color:var(--text-muted);margin-top:1px; }
+    .prompt-toggle { font-size:12px;color:var(--text-muted);transition:transform .2s; }
+    .prompt-toggle.open { transform:rotate(180deg); }
+    .prompt-body { display:none;padding:0 18px 16px; }
+    .prompt-body.open { display:block;animation:fadeIn .2s ease; }
+    .prompt-box { background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:16px;font-size:12px;color:#c4b5fd;line-height:1.8;font-family:'Space Grotesk',monospace;white-space:pre-wrap;word-break:break-word;max-height:220px;overflow-y:auto;margin-bottom:12px; }
+    .prompt-box::-webkit-scrollbar { width:4px; }
+    .prompt-box::-webkit-scrollbar-thumb { background:rgba(99,102,241,.3);border-radius:4px; }
+    .btn-copy { display:inline-flex;align-items:center;gap:7px;background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.25);color:#67e8f9;padding:9px 18px;border-radius:9px;cursor:pointer;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em;transition:all .15s;text-transform:uppercase; }
+    .btn-copy:hover { background:rgba(6,182,212,.18);box-shadow:0 0 16px rgba(6,182,212,.15); }
+    .btn-copy.copied { background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3);color:#34d399; }
+    .btn-copy-all { display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.25);color:#a5b4fc;padding:12px;border-radius:10px;cursor:pointer;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;transition:all .15s;text-transform:uppercase;margin-top:14px; }
+    .btn-copy-all:hover { background:rgba(99,102,241,.18); }
+    .btn-copy-all.copied { background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3);color:#34d399; }
+
+    /* MULTI-SELECT hint */
+    .multi-hint { font-size:12px;color:var(--accent3);font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:6px;opacity:.85; }
+    .multi-hint::before { content:'ℹ'; font-size:14px; }
+
+    /* PAYWALL */
+    .prompt-locked { position:relative;border-radius:14px;overflow:hidden;margin-bottom:12px; }
+    .prompt-locked-inner { filter:blur(4px);pointer-events:none;user-select:none;opacity:.4; }
+    .prompt-lock-overlay { position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:rgba(6,6,13,.7);backdrop-filter:blur(2px);border:1px solid rgba(99,102,241,.2);border-radius:14px; }
+    .lock-icon { font-size:28px; }
+    .lock-label { font-size:13px;font-weight:700;color:var(--text);letter-spacing:.02em; }
+    .lock-sub { font-size:12px;color:var(--text-muted);text-align:center;max-width:240px;line-height:1.5; }
+
+    /* PAYWALL CTA */
+    .paywall-cta { background:linear-gradient(135deg,rgba(99,102,241,.12),rgba(139,92,246,.1));border:1px solid rgba(99,102,241,.3);border-radius:18px;padding:28px;margin-top:14px;text-align:center;position:relative;overflow:hidden; }
+    .paywall-cta::before { content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(99,102,241,.5),transparent); }
+    .paywall-eyebrow { font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#a5b4fc;margin-bottom:10px; }
+    .paywall-title { font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:#f0f0f8;margin-bottom:8px;line-height:1.2; }
+    .paywall-desc { font-size:14px;color:var(--text-dim);line-height:1.6;margin-bottom:20px;max-width:420px;margin-left:auto;margin-right:auto; }
+    .paywall-features { display:flex;flex-direction:column;gap:8px;margin-bottom:22px;text-align:left;max-width:300px;margin-left:auto;margin-right:auto; }
+    .paywall-feature { display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-dim); }
+    .paywall-feature .check { color:#34d399;font-weight:700;font-size:14px;flex-shrink:0; }
+    .btn-unlock { display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;padding:15px 36px;border-radius:12px;border:none;cursor:pointer;transition:all .2s;box-shadow:0 0 40px rgba(99,102,241,.3),inset 0 1px 0 rgba(255,255,255,.15);letter-spacing:.01em;text-decoration:none; }
+    .btn-unlock:hover { transform:translateY(-2px);box-shadow:0 0 60px rgba(99,102,241,.5),inset 0 1px 0 rgba(255,255,255,.15); }
+    .paywall-note { font-size:12px;color:var(--text-muted);margin-top:12px; }
+
+    /* HOW TO USE GUIDE */
+    .how-to-guide { background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:18px;padding:26px;margin-bottom:14px; }
+    .how-to-guide h3 { font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--text-muted);margin-bottom:18px;display:flex;align-items:center;gap:8px; }
+    .how-to-guide h3::before { content:'▸';color:var(--accent); }
+    .how-to-step { display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.05); }
+    .how-to-step:last-child { margin-bottom:0;padding-bottom:0;border-bottom:none; }
+    .how-to-num { width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent3));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:white;flex-shrink:0;box-shadow:0 0 12px rgba(99,102,241,.25); }
+    .how-to-content .how-to-title { font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px; }
+    .how-to-content .how-to-desc { font-size:13px;color:var(--text-dim);line-height:1.6; }
+
+    .btn-retake { display:block;width:100%;background:transparent;border:1px solid rgba(255,255,255,.07);color:var(--text-muted);padding:14px;border-radius:14px;cursor:pointer;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;transition:all .15s;margin-top:10px;margin-bottom:40px;letter-spacing:.02em; }
+    .btn-retake:hover { border-color:rgba(255,255,255,.15);color:var(--text); }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+    .result-anim { animation:fadeIn .5s ease; }
+
+    @media(max-width:520px) { .pros-cons{grid-template-columns:1fr} .social-proof{gap:10px} .score-model{width:120px} }
+  </style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<div class="app">
+
+  <div class="hero" id="hero">
+    <div class="hero-eyebrow"><span class="pulse"></span> 8 Business Models Analyzed</div>
+    <h1>
+      <span class="line-white">Find Your Perfect</span>
+      <span class="line-grad">Online Business Model</span>
+    </h1>
+    <p>Answer 10 questions and get a personalized recommendation — plus a full AI prompt chain to help you launch fast.</p>
+    <button class="btn-start" onclick="startQuiz()">Start Free Assessment <span style="opacity:.7">→</span></button>
+    <div class="social-proof">
+      <span>⚡ 2 minutes</span>
+      <div class="sep"></div>
+      <span>★ 4.9 rated</span>
+      <div class="sep"></div>
+      <span>🔒 No email required</span>
+      <div class="sep"></div>
+      <span>🤖 AI prompts included</span>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz">
+    <div class="progress-dots" id="progressDots"></div>
+    <div id="questionWrap">
+      <div class="question-counter" id="questionCounter"></div>
+      <div class="question-text" id="questionText"></div>
+      <div class="options" id="optionsContainer"></div>
+    </div>
+    <div class="nav-buttons">
+      <button class="btn-back" id="btnBack" onclick="prevQuestion()">← Back</button>
+      <button class="btn-next" id="btnNext" onclick="nextQuestion()">Next →</button>
+    </div>
+  </div>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+// ── QUESTIONS ──────────────────────────────────────────────────────────────
+const questions = [
+  {id:"Q1",question:"What's your primary goal for starting an online business?",options:[
+    {value:"A",label:"Make money as fast as possible"},
+    {value:"B",label:"Build passive or semi-passive income over time"},
+    {value:"C",label:"Create an independent income stream with flexibility"},
+    {value:"D",label:"Build a scalable brand with long-term growth potential"}
+  ]},
+  {id:"Q2",question:"How much time can you realistically dedicate each week?",options:[
+    {value:"A",label:"Less than 5 hours"},
+    {value:"B",label:"5–15 hours"},
+    {value:"C",label:"15–30 hours"},
+    {value:"D",label:"30+ hours — I'm going all in"}
+  ]},
+  {id:"Q3",question:"How comfortable are you with risk?",options:[
+    {value:"A",label:"I want the safest, most predictable option"},
+    {value:"B",label:"I'm comfortable with calculated risk"},
+    {value:"C",label:"I'll accept high uncertainty for higher upside"}
+  ]},
+  {id:"Q4",question:"What's your starting budget?",options:[
+    {value:"A",label:"$0–$500"},
+    {value:"B",label:"$500–$1,500"},
+    {value:"C",label:"$1,500–$3,000+"}
+  ]},
+  {id:"Q5",question:"Are you open to building a personal brand or being on camera?",options:[
+    {value:"A",label:"Yes — I'm comfortable on camera"},
+    {value:"B",label:"Maybe — I'm open but still figuring it out"},
+    {value:"C",label:"No — I prefer staying behind the scenes"}
+  ]},
+  {id:"Q6",question:"Do you want to work directly with clients or customers?",options:[
+    {value:"A",label:"Yes — I enjoy working with people"},
+    {value:"B",label:"Maybe — depends on the situation"},
+    {value:"C",label:"No — I want minimal direct interaction"}
+  ]},
+  {id:"Q7",question:"Which activities do you enjoy most or want to learn?",multi:true,maxSelect:2,options:[
+    {value:"A",label:"Writing, research, or strategy"},
+    {value:"B",label:"Video creation or editing"},
+    {value:"C",label:"Talking to people, selling, or closing deals"},
+    {value:"D",label:"Building systems, automating, or technical work"}
+  ]},
+  {id:"Q8",question:"If someone handed you $1,000 to start right now, what would you do first?",options:[
+    {value:"A",label:"Run paid ads to test an offer fast"},
+    {value:"B",label:"Buy inventory or a course to build a skill"},
+    {value:"C",label:"Build a website or content to attract organic traffic"},
+    {value:"D",label:"Invest in tools and software to build a system"}
+  ]},
+  {id:"Q9",question:"What best describes the kind of business you want?",options:[
+    {value:"A",label:"Something I can start today with little experience"},
+    {value:"B",label:"A brand or audience I build over time"},
+    {value:"C",label:"A product or system that earns while I sleep"},
+    {value:"D",label:"A service or agency where I charge premium rates"}
+  ]},
+  {id:"Q10",question:"How comfortable are you using AI tools (ChatGPT, Claude, etc.)?",options:[
+    {value:"A",label:"Very comfortable — I use them regularly"},
+    {value:"B",label:"Somewhat — I've tried a few"},
+    {value:"C",label:"Not much — I'm still learning"}
+  ]},
+];
+
+// ── SCORING (8 models) ─────────────────────────────────────────────────────
+// PB=Personal Brand, AA=Amazon/Affiliate, DP=Digital Products, CO=Coaching
+// FR=Freelancing, SM=SMMA/Agency, DS=Dropshipping, AI=AI Services
+const scoring = {
+  Q1:{
+    A:{PB:2, AA:8, DP:4,  CO:7, FR:10,SM:5, DS:6, AI:7},
+    B:{PB:3, AA:6, DP:10, CO:3, FR:1, SM:2, DS:6, AI:4},
+    C:{PB:8, AA:3, DP:7,  CO:4, FR:6, SM:3, DS:4, AI:5},
+    D:{PB:7, AA:3, DP:4,  CO:9, FR:2, SM:9, DS:5, AI:7},
+  },
+  Q2:{
+    A:{PB:-4,AA:-6,DP:7,  CO:3, FR:2, SM:-4,DS:4, AI:3},
+    B:{PB:4, AA:2, DP:6,  CO:5, FR:5, SM:3, DS:5, AI:5},
+    C:{PB:7, AA:7, DP:5,  CO:6, FR:7, SM:6, DS:6, AI:7},
+    D:{PB:9, AA:9, DP:5,  CO:8, FR:8, SM:9, DS:7, AI:8},
+  },
+  Q3:{
+    A:{PB:2, AA:6, DP:6,  CO:4, FR:8, SM:2, DS:3, AI:4},
+    B:{PB:6, AA:6, DP:7,  CO:6, FR:6, SM:7, DS:7, AI:7},
+    C:{PB:9, AA:3, DP:4,  CO:8, FR:3, SM:8, DS:6, AI:7},
+  },
+  Q4:{
+    A:{PB:8, AA:2, DP:6,  CO:8, FR:10,SM:5, DS:3, AI:7},
+    B:{PB:6, AA:6, DP:7,  CO:6, FR:7, SM:6, DS:6, AI:6},
+    C:{PB:4, AA:9, DP:8,  CO:5, FR:4, SM:7, DS:8, AI:5},
+  },
+  Q5:{
+    A:{PB:10,AA:1, DP:2,  CO:4, FR:3, SM:6, DS:1, AI:2},
+    B:{PB:6, AA:1, DP:2,  CO:4, FR:3, SM:4, DS:1, AI:2},
+    C:{PB:-4,AA:4, DP:6,  CO:5, FR:5, SM:1, DS:7, AI:5},
+  },
+  Q6:{
+    A:{PB:3, AA:3, DP:-3, CO:10,FR:9, SM:9, DS:-3,AI:6},
+    B:{PB:4, AA:4, DP:3,  CO:5, FR:6, SM:5, DS:3, AI:5},
+    C:{PB:5, AA:6, DP:9,  CO:-4,FR:-4,SM:-4,DS:9, AI:4},
+  },
+  Q7:{
+    A:{PB:7, AA:2, DP:7,  CO:5, FR:8, SM:5, DS:2, AI:4},
+    B:{PB:9, AA:1, DP:3,  CO:3, FR:4, SM:6, DS:1, AI:3},
+    C:{PB:2, AA:7, DP:1,  CO:9, FR:5, SM:9, DS:4, AI:5},
+    D:{PB:3, AA:6, DP:7,  CO:3, FR:4, SM:4, DS:8, AI:10},
+  },
+  Q8:{
+    A:{PB:3, AA:7, DP:4,  CO:5, FR:2, SM:6, DS:8, AI:5},
+    B:{PB:2, AA:9, DP:4,  CO:4, FR:5, SM:3, DS:6, AI:4},
+    C:{PB:8, AA:3, DP:7,  CO:3, FR:5, SM:4, DS:3, AI:6},
+    D:{PB:4, AA:3, DP:6,  CO:5, FR:4, SM:5, DS:5, AI:9},
+  },
+  Q9:{
+    A:{PB:2, AA:6, DP:4,  CO:9, FR:10,SM:4, DS:5, AI:7},
+    B:{PB:10,AA:2, DP:4,  CO:4, FR:3, SM:7, DS:2, AI:4},
+    C:{PB:4, AA:5, DP:10, CO:2, FR:1, SM:2, DS:8, AI:5},
+    D:{PB:3, AA:1, DP:2,  CO:9, FR:4, SM:9, DS:2, AI:7},
+  },
+  Q10:{
+    A:{PB:4, AA:4, DP:8,  CO:4, FR:6, SM:5, DS:4, AI:12},
+    B:{PB:4, AA:4, DP:6,  CO:4, FR:4, SM:4, DS:4, AI:7},
+    C:{PB:3, AA:3, DP:2,  CO:3, FR:3, SM:2, DS:3, AI:-2},
+  },
+};
+
+// ── MODEL DATA ─────────────────────────────────────────────────────────────
+const modelNames = {PB:"Personal Brand",AA:"Amazon/Affiliate",DP:"Digital Products",CO:"Coaching & Consulting",FR:"Freelancing",SM:"SMMA / Agency",DS:"Dropshipping",AI:"AI Services"};
+
+const models = {
+  PB:{
+    name:"Personal Brand",emoji:"🎤",tagline:"Build an audience. Monetize your story.",
+    description:"Your personality, story, and perspective are your product. Build an audience on YouTube, TikTok, or a newsletter — then monetize through sponsorships, courses, affiliate deals, or your own offers. This is a long game with compounding returns.",
+    timeToRevenue:"3–6 months",startupCost:"$0–$200",revenuePotential:"$5k–$50k+/month",difficulty:"Medium",
+    pros:["Low startup cost","Compound audience growth","Multiple monetization streams","You own the relationship"],
+    cons:["Slow early growth","Requires consistent content output","Public-facing commitment"],
+    nextSteps:["Pick ONE platform and commit for 90 days (YouTube, TikTok, or newsletter)","Post 3x per week — document your journey, don't wait to be an expert","Monetize at 1k followers: affiliate links, digital product, or sponsors"]
+  },
+  AA:{
+    name:"Amazon FBA / Affiliate",emoji:"📦",tagline:"Let the platforms do the heavy lifting.",
+    description:"You want systems that scale with capital, not time. Amazon FBA lets you ship physical products through the world's biggest marketplace. Affiliate marketing lets you earn commissions recommending products you don't own. Both can run largely hands-off once dialed in.",
+    timeToRevenue:"1–3 months",startupCost:"$500–$3,000",revenuePotential:"$3k–$30k+/month",difficulty:"Medium-High",
+    pros:["Built-in marketplace traffic","Scales with capital","Can be largely automated","Low customer service burden"],
+    cons:["Upfront capital required","Platform risk (Amazon can suspend)","Competitive pricing pressure"],
+    nextSteps:["Research a niche using Jungle Scout or Helium 10","Find a supplier on Alibaba and order samples","Launch 1 product, gather reviews aggressively, then scale"]
+  },
+  DP:{
+    name:"Digital Products",emoji:"💻",tagline:"Create once. Sell forever.",
+    description:"You want income that doesn't require your time after it's built. Courses, templates, ebooks, presets, Notion dashboards, or tools — create once and sell infinitely with 80–95% margins. The upfront work is real, but the leverage is unmatched.",
+    timeToRevenue:"1–2 months",startupCost:"$0–$500",revenuePotential:"$2k–$20k+/month",difficulty:"Medium",
+    pros:["True passive income potential","80–95% profit margins","No inventory or shipping","Scales instantly with zero extra cost"],
+    cons:["Requires real upfront effort to create","Needs traffic or an audience to sell","Some niches are saturated"],
+    nextSteps:["Identify what skill or knowledge people would pay for","Build a simple product: template, mini-course, or ebook in 2 weeks","List on Gumroad, Lemon Squeezy, or Stan Store and drive traffic"]
+  },
+  CO:{
+    name:"Coaching & Consulting",emoji:"🧠",tagline:"Turn expertise into high-ticket income.",
+    description:"You have knowledge, skills, or experience people will pay premium rates for. Coaching and consulting is the fastest path to $5k–$10k/month with almost no startup cost. No product to build — just an offer, a client, and a result to deliver.",
+    timeToRevenue:"2–4 weeks",startupCost:"$0–$100",revenuePotential:"$5k–$30k+/month",difficulty:"Low-Medium",
+    pros:["Fastest path to first dollar","High-ticket rates ($500–$5k per client)","Zero product build required","Leverage existing skills immediately"],
+    cons:["Trades time for money initially","Requires direct client work","Hard to scale without systemizing or a team"],
+    nextSteps:["Define your niche and the specific result you help clients achieve","Create a simple offer ($500–$2k for clear deliverables)","DM 20 people who fit your ideal client profile this week"]
+  },
+  FR:{
+    name:"Freelancing",emoji:"🛠",tagline:"Get paid for skills you already have.",
+    description:"Freelancing is the fastest way to make real money online with zero startup cost. Writing, design, video editing, web development, copywriting, social media — if you have a skill, someone will pay for it. Start on Upwork, Fiverr, or cold outreach directly.",
+    timeToRevenue:"1–2 weeks",startupCost:"$0–$100",revenuePotential:"$2k–$15k+/month",difficulty:"Low",
+    pros:["Fastest to first dollar (days, not months)","Zero upfront investment","Huge demand for skilled freelancers","Build reputation and raise rates over time"],
+    cons:["Active income — you stop working, income stops","Can feel like a job if you don't systematize","Client acquisition can be grind-heavy early on"],
+    nextSteps:["List your top 3 marketable skills honestly","Create profiles on Upwork and Fiverr today with a clear offer","Send 10 cold pitches this week to businesses who need your skill"]
+  },
+  SM:{
+    name:"SMMA / Agency",emoji:"📈",tagline:"Manage and grow other people's businesses.",
+    description:"Social Media Marketing Agencies (SMMA) and digital agencies charge businesses $1,000–$5,000/month to manage their ads, content, SEO, or social presence. High-ticket, recurring revenue, and scalable with a team. Requires hustle and sales skills to land clients.",
+    timeToRevenue:"2–6 weeks",startupCost:"$0–$500",revenuePotential:"$5k–$50k+/month",difficulty:"Medium-High",
+    pros:["Recurring monthly retainer revenue","No physical product needed","Highly scalable with contractors","Premium rates for delivering real ROI"],
+    cons:["Client acquisition is tough early","Results-dependent (clients churn if ROI is low)","Requires strong sales and communication skills"],
+    nextSteps:["Pick ONE service (ads, SEO, content, or video) and ONE niche industry","Offer a free or discounted first client to build case studies","Use the results to charge $1k–$3k/month retainers for the next client"]
+  },
+  DS:{
+    name:"Dropshipping",emoji:"🚚",tagline:"Sell products without touching inventory.",
+    description:"Dropshipping lets you sell physical products online without holding any inventory. When a customer orders, your supplier ships it directly. Low barrier to entry, but margins are thin and competition is fierce. Success comes from product research, ads, and branding.",
+    timeToRevenue:"2–6 weeks",startupCost:"$300–$1,500",revenuePotential:"$2k–$20k+/month",difficulty:"Medium-High",
+    pros:["No inventory or upfront product cost","Low startup cost vs traditional retail","Can test many products quickly","Location independent"],
+    cons:["Thin margins (10–30%)","Shipping times can hurt reputation","Highly competitive, requires strong product research","Ad costs eat into profit if not optimized"],
+    nextSteps:["Research winning products using Minea, AdSpy, or TikTok Creative Center","Set up a Shopify store with a clean branded look","Run $20/day test ads on TikTok or Meta — kill losers fast, scale winners"]
+  },
+  AI:{
+    name:"AI Services",emoji:"🤖",tagline:"Sell the future. Today.",
+    description:"AI is the fastest-growing opportunity online right now. Build AI-powered tools, automations, chatbots, or workflows for businesses. Offer AI consulting, prompt engineering, AI content creation, or no-code AI solutions. Massive demand, low competition, premium rates.",
+    timeToRevenue:"1–4 weeks",startupCost:"$0–$300",revenuePotential:"$3k–$25k+/month",difficulty:"Medium",
+    pros:["Exploding demand with little competition","Premium rates for AI expertise","Low startup cost","Skills can be learned fast with free resources"],
+    cons:["Rapidly evolving — need to keep learning","Client education can be time-consuming","Some technical learning curve"],
+    nextSteps:["Pick your AI service: chatbots, automation, content, or consulting","Learn 1 tool deeply: Make.com, Zapier, or custom GPT builds","Land 2 local businesses as pilot clients and charge $500–$2k for a build"]
+  },
+};
+
+// ── ANSWER LABELS ──────────────────────────────────────────────────────────
+const AL = {
+  Q1:{A:"make money as fast as possible",B:"build passive income over time",C:"create an independent and flexible income stream",D:"build a scalable long-term brand"},
+  Q2:{A:"less than 5 hours per week",B:"5–15 hours per week",C:"15–30 hours per week",D:"30+ hours per week"},
+  Q3:{A:"low risk, predictable income",B:"calculated risk with solid upside",C:"high risk with high reward potential"},
+  Q4:{A:"$0–$500",B:"$500–$1,500",C:"$1,500–$3,000+"},
+  Q5:{A:"yes, comfortable on camera",B:"open to it but still figuring it out",C:"no, prefer staying behind the scenes"},
+  Q6:{A:"yes, I enjoy working with people",B:"maybe, depends on the opportunity",C:"no, I want minimal client interaction"},
+  Q7:{A:"writing, research, or strategy",B:"video creation or editing",C:"selling and talking to people",D:"building systems and automating things"},
+  Q8:{A:"run paid ads to test fast",B:"buy inventory or invest in learning a skill",C:"build a website or content hub for organic traffic",D:"invest in tools and software to build a system"},
+  Q9:{A:"something I can start with zero experience today",B:"a brand or audience I build over time",C:"a passive product or system that earns while I sleep",D:"a service or agency charging premium rates"},
+  Q10:{A:"very comfortable — I use AI tools regularly",B:"somewhat comfortable — I've tried a few",C:"not much yet — still learning"},
+};
+
+// ── PROMPT CHAINS (5 prompts per model) ───────────────────────────────────
+const promptChains = {
+  PB:(a)=>[
+    {label:"Strategy & Niche Selection",sub:"Find your angle and platform",text:`You are a personal brand strategist. Help me find my niche and content angle.
+
+My situation:
+- Goal: ${a.Q1}
+- Time per week: ${a.Q2}
+- Budget: ${a.Q4}
+- Skills I enjoy: ${a.Q7}
+- Camera comfort: ${a.Q5}
+
+Give me:
+1. The single best platform for me to start on and exactly why
+2. 3 specific niche angles I could own based on my profile
+3. The content format I should lead with (long-form, short-form, written)
+4. What makes a personal brand impossible to ignore in 2025
+
+Format as a structured breakdown with headers. Be brutally specific — no generic advice.`},
+    {label:"30-Day Content Plan",sub:"Week-by-week execution roadmap",text:`You are a content strategy expert. Build me a 30-day personal brand launch plan.
+
+Context:
+- Platform: [INSERT PLATFORM FROM PROMPT 1]
+- Niche: [INSERT NICHE FROM PROMPT 1]
+- Time available: ${a.Q2}
+- Budget: ${a.Q4}
+
+Deliver:
+1. A week-by-week breakdown (Week 1–4) with specific content topics
+2. Exactly how many posts per week and what format each should be
+3. The hook formula I should use for every piece of content
+4. How to repurpose one piece of content into 3 formats
+
+Format as a table for weeks, then bullet points for tactics. Be specific and actionable.`},
+    {label:"First Week Action Blueprint",sub:"Day-by-day tasks for week one",text:`You are a business launch coach. Give me a day-by-day action plan for my first 7 days building my personal brand.
+
+My profile:
+- Platform chosen: [INSERT FROM PROMPT 1]
+- Niche: [INSERT FROM PROMPT 1]
+- Skills: ${a.Q7}
+- Time per day: estimate based on ${a.Q2}/week
+
+Day 1 through Day 7 — give me:
+- Exactly what to do each day (specific tasks, not vague goals)
+- How long each task should take
+- What "done" looks like for each day
+
+Format as Day 1: [tasks], Day 2: [tasks], etc. Include time estimates.`},
+    {label:"Monetization Strategy",sub:"How to turn followers into income",text:`You are a content monetization expert. I'm building a personal brand and want to know exactly how to make money from it.
+
+My situation:
+- Goal: ${a.Q1}
+- Niche: [INSERT FROM PROMPT 1]
+- Platform: [INSERT FROM PROMPT 1]
+- Budget to invest: ${a.Q4}
+
+Give me:
+1. The 3 best monetization models for my niche in order of speed to revenue
+2. At what follower/subscriber count I should activate each monetization stream
+3. A specific offer I could create in the next 30 days to start making money
+4. How to pitch sponsors before I have a massive audience
+
+Format as numbered sections with specific examples and dollar estimates.`},
+    {label:"Revenue Milestone Tracker",sub:"90-day targets and checkpoints",text:`You are a business growth coach. Give me a 90-day personal brand revenue roadmap with clear milestones.
+
+My situation:
+- Starting point: zero audience, zero income
+- Platform: [INSERT FROM PROMPT 1]
+- Time commitment: ${a.Q2}
+- Primary goal: ${a.Q1}
+
+Build me:
+1. Month 1 milestone (audience, content output, first income target)
+2. Month 2 milestone (growth rate, monetization activated)
+3. Month 3 milestone (revenue target, next steps to scale)
+4. The 3 metrics I should track weekly
+5. Warning signs I'm off track and how to course-correct
+
+Format as a milestone table, then a weekly metrics tracker template.`},
+  ],
+  FR:(a)=>[
+    {label:"Skill & Niche Identification",sub:"Find what to sell and who to sell to",text:`You are a freelance business strategist. Help me identify the best service to offer as a freelancer.
+
+My situation:
+- Goal: ${a.Q1}
+- Time available: ${a.Q2}
+- Budget: ${a.Q4}
+- Skills/interests: ${a.Q7}
+- Client comfort level: ${a.Q6}
+
+Give me:
+1. The top 3 freelance services I should consider based on my profile (with hourly rate ranges)
+2. The single best one to start with and why
+3. The niche industry I should target (e.g., SaaS companies, local restaurants, e-commerce brands)
+4. What my positioning statement should be (one sentence that makes clients want to hire me)
+
+Be specific. Include real rate ranges and realistic expectations for a beginner.`},
+    {label:"Profile & Portfolio Setup",sub:"Build credibility from day one",text:`You are a freelance marketing expert. Help me build a client-attracting profile and portfolio even as a beginner.
+
+My service: [INSERT FROM PROMPT 1]
+My niche: [INSERT FROM PROMPT 1]
+Budget: ${a.Q4}
+
+Give me:
+1. Exactly what to put in my Upwork/Fiverr profile bio (write the actual text, not just advice)
+2. How to build a portfolio with zero previous clients (3 specific methods)
+3. What my starting price should be and when to raise it
+4. The 5 elements every great freelance profile must have
+
+Format as sections with actual examples and templates.`},
+    {label:"First Client Acquisition Plan",sub:"Land your first paying client this week",text:`You are a sales coach for freelancers. Help me land my first client as fast as possible.
+
+My service: [INSERT FROM PROMPT 1]
+My niche: [INSERT FROM PROMPT 1]
+Time available: ${a.Q2}
+Budget for outreach: ${a.Q4}
+
+Give me:
+1. The 3 fastest channels to get my first client (ranked by speed)
+2. A cold outreach message template that actually gets replies (write the full message)
+3. How to handle the first sales call or conversation
+4. What to do if a prospect says "you're too expensive" or "I'll think about it"
+
+Format as a playbook with actual scripts and templates I can use today.`},
+    {label:"Rate Raising & Positioning",sub:"Charge what you're worth",text:`You are a pricing strategist for freelancers. Help me increase my rates and position myself as a premium freelancer.
+
+Current situation:
+- Service offered: [INSERT FROM PROMPT 1]
+- Niche: [INSERT FROM PROMPT 1]
+- Goal: ${a.Q1}
+- Time per week: ${a.Q2}
+
+Give me:
+1. A roadmap to go from beginner rates to premium rates (specific $ milestones)
+2. How to package my services as retainers instead of one-off projects
+3. The exact language to use when raising rates with existing clients
+4. How many clients I need to hit $5k/month, $10k/month
+
+Include specific numbers and timelines. Format as a structured plan.`},
+    {label:"90-Day Revenue Roadmap",sub:"From first gig to consistent income",text:`You are a freelance business coach. Build me a 90-day roadmap to go from zero to consistent income as a freelancer.
+
+My profile:
+- Service: [INSERT FROM PROMPT 1]
+- Time commitment: ${a.Q2}
+- Starting budget: ${a.Q4}
+- Income goal: ${a.Q1}
+
+Deliver:
+1. Week 1–2: Setup phase (what to build, create, and publish)
+2. Week 3–4: Outreach phase (targets, volume, templates)
+3. Month 2: First clients (onboarding, delivery, getting testimonials)
+4. Month 3: Scale phase (raise rates, get referrals, consider niching down)
+5. The 3 metrics to track weekly
+
+Format as a timeline with weekly checkpoints and specific tasks.`},
+  ],
+  SM:(a)=>[
+    {label:"Service & Niche Selection",sub:"Pick the right offer for your agency",text:`You are an SMMA and digital agency expert. Help me decide what service to offer and what niche to serve.
+
+My situation:
+- Goal: ${a.Q1}
+- Time available: ${a.Q2}
+- Budget: ${a.Q4}
+- Skills: ${a.Q7}
+- Risk tolerance: ${a.Q3}
+
+Give me:
+1. The top 3 agency services with the best demand/competition ratio right now
+2. The single best service for me to start with based on my skills
+3. The 3 best niche industries for this service (with reasoning)
+4. What a realistic retainer price looks like for a beginner agency
+
+Be specific. Include market rates and realistic revenue timelines.`},
+    {label:"Case Study & Credibility Build",sub:"Land your first client with no portfolio",text:`You are an agency growth strategist. Help me build credibility and land my first agency client without an existing portfolio.
+
+My service: [INSERT FROM PROMPT 1]
+My niche: [INSERT FROM PROMPT 1]
+Budget: ${a.Q4}
+
+Give me:
+1. The "free pilot" strategy — exactly how to offer a trial that converts to a paid client
+2. How to find and approach my first 5 prospects this week
+3. What to say on the first call (give me an actual script outline)
+4. How to turn 1 case study into 5 more paying clients
+
+Format with real scripts and specific tactics I can execute today.`},
+    {label:"Client Delivery System",sub:"Deliver results that create referrals",text:`You are an agency operations expert. Help me build a client delivery system that gets results and generates referrals.
+
+My service: [INSERT FROM PROMPT 1]
+Clients I serve: [INSERT NICHE FROM PROMPT 1]
+Time per week: ${a.Q2}
+
+Give me:
+1. The onboarding process for a new client (step-by-step)
+2. The monthly reporting structure that makes clients feel the value
+3. How to get testimonials and referrals proactively
+4. What KPIs to track and report to each client type
+5. How to handle a client who wants to cancel
+
+Format as an operations playbook with checklists.`},
+    {label:"Agency Pricing & Packaging",sub:"Structure retainers that clients love",text:`You are a pricing strategist for agencies. Help me build service packages that sell and retain clients.
+
+Agency service: [INSERT FROM PROMPT 1]
+Niche: [INSERT FROM PROMPT 1]
+Goal: ${a.Q1}
+
+Give me:
+1. 3 pricing tiers I should offer (Starter, Growth, Premium) with exact deliverables and prices
+2. How to present pricing in a way that makes the middle tier feel obvious
+3. Contract length recommendations and how to pitch annual deals
+4. How to upsell existing clients without feeling pushy
+
+Include specific $ numbers. Format as a pricing menu, then a sales strategy.`},
+    {label:"Scale to $10k/Month Roadmap",sub:"Build a real agency, not just a job",text:`You are an agency scale expert. Give me a step-by-step roadmap to build my agency to $10k/month.
+
+Starting point:
+- Service: [INSERT FROM PROMPT 1]
+- Niche: [INSERT FROM PROMPT 1]
+- Current clients: 0
+- Time available: ${a.Q2}
+
+Give me:
+1. Month 1: First client acquisition (specific steps and targets)
+2. Month 2: Systems and second client (delegation and delivery)
+3. Month 3: Hit $5k/month and build referral engine
+4. Month 4–6: Scale to $10k with team and repeatable process
+5. The exact order of hires as revenue grows
+
+Format as a milestone roadmap with revenue targets at each stage.`},
+  ],
+  DS:(a)=>[
+    {label:"Product Research Strategy",sub:"Find a winning product before spending a dollar",text:`You are a dropshipping and e-commerce expert. Help me find a winning product to sell.
+
+My situation:
+- Goal: ${a.Q1}
+- Budget: ${a.Q4}
+- Risk tolerance: ${a.Q3}
+- Time available: ${a.Q2}
+
+Give me:
+1. The 5 best criteria for a winning dropshipping product in 2025
+2. The top 3 product research tools and exactly how to use each
+3. 3 specific product categories with strong demand right now
+4. How to validate a product before spending any ad money
+5. Red flags that mean a product will fail
+
+Format as a research framework with specific examples and tools.`},
+    {label:"Store Setup & Branding",sub:"Build a store that converts",text:`You are a Shopify and e-commerce conversion expert. Help me set up a high-converting dropshipping store.
+
+Product niche: [INSERT FROM PROMPT 1]
+Budget: ${a.Q4}
+
+Give me:
+1. The exact Shopify theme and apps I need (with specific names and costs)
+2. The 5 elements every high-converting product page must have
+3. How to write product descriptions that sell (give me a template)
+4. Pricing strategy — how to price for margin and perceived value
+5. The trust signals that reduce cart abandonment
+
+Format as a setup checklist with specific recommendations.`},
+    {label:"Paid Ads Launch Plan",sub:"Test products fast without burning budget",text:`You are a paid advertising expert for e-commerce. Help me launch and test my first ad campaign.
+
+Product: [INSERT FROM PROMPT 1]
+Store niche: [INSERT FROM PROMPT 1]
+Ad budget: ${a.Q4}
+Platform preference: TikTok or Meta
+
+Give me:
+1. My day 1–7 ad testing framework (budgets, audiences, creatives)
+2. How to create scroll-stopping ad creative with no video skills
+3. The metrics to watch and when to kill vs scale an ad
+4. How to go from $20/day testing to $100/day scaling
+5. The most common reasons new dropshippers lose money on ads
+
+Format as a testing playbook with specific numbers and decision rules.`},
+    {label:"Supplier & Fulfillment Setup",sub:"Build a reliable supply chain",text:`You are a supply chain and dropshipping operations expert. Help me find reliable suppliers and set up fulfillment.
+
+Product niche: [INSERT FROM PROMPT 1]
+Budget: ${a.Q4}
+Goal: ${a.Q1}
+
+Give me:
+1. The best supplier platforms for dropshipping (AliExpress, CJ, AutoDS, etc.) and when to use each
+2. How to vet a supplier before trusting them with customer orders
+3. How to handle shipping times and set customer expectations
+4. When and how to transition from dropshipping to private labeling
+5. How to handle returns, refunds, and chargebacks professionally
+
+Format as a supplier vetting checklist and fulfillment guide.`},
+    {label:"Scaling to Consistent Profit",sub:"Turn a winning product into a real business",text:`You are an e-commerce scale strategist. Help me turn a profitable dropshipping product into a consistent business.
+
+Current situation:
+- Product found and tested: [INSERT FROM PROMPT 1]
+- Store is live
+- Time available: ${a.Q2}
+- Budget to scale: ${a.Q4}
+
+Give me:
+1. How to scale ad spend without killing profitability
+2. When to start building a brand (domain, packaging, private label)
+3. How to add complementary products to increase average order value
+4. How to build an email list and use it to generate repeat revenue
+5. The 90-day milestones from $1k/month to $10k/month
+
+Format as a scaling roadmap with revenue targets and decision checkpoints.`},
+  ],
+  CO:(a)=>[
+    {label:"Niche & Offer Definition",sub:"Get crystal clear on who you help and how",text:`You are a high-ticket coaching and consulting strategist. Help me define my niche and create a compelling offer.
+
+My situation:
+- Goal: ${a.Q1}
+- Time available: ${a.Q2}
+- Budget: ${a.Q4}
+- Skills/interests: ${a.Q7}
+- Client preference: ${a.Q6}
+
+Give me:
+1. A framework to identify what I can legitimately charge for (even without feeling like an expert)
+2. 3 specific niches I should consider based on my profile
+3. The single best niche to start with and why
+4. My offer framework: who I help, what result I deliver, in what timeframe, at what price
+
+Format as a structured breakdown. Be direct — include real pricing expectations.`},
+    {label:"Client Acquisition Playbook",sub:"Land your first 2–3 clients fast",text:`You are a sales coach for coaches and consultants. Help me land my first clients without paid ads or a big audience.
+
+My niche: [INSERT FROM PROMPT 1]
+My offer: [INSERT FROM PROMPT 1]
+Time available: ${a.Q2}
+Starting budget: ${a.Q4}
+
+Give me:
+1. The 3 fastest channels to find my ideal clients (ranked by speed)
+2. A cold DM or outreach message template that gets responses (write the actual message)
+3. How to run a discovery call that converts (give me a call structure)
+4. How to handle the top 3 objections: "I'll think about it," "too expensive," "not sure it'll work"
+5. How to close without feeling pushy or salesy
+
+Format as a sales playbook with real scripts.`},
+    {label:"Program & Delivery Design",sub:"Create a program that gets clients results",text:`You are a curriculum design expert for coaches. Help me build a coaching program that delivers real results.
+
+My niche: [INSERT FROM PROMPT 1]
+My offer: [INSERT FROM PROMPT 1]
+Program length: 4–12 weeks
+Delivery format: 1:1 calls, group, or async
+
+Give me:
+1. The structure of my core program (modules, milestones, deliverables)
+2. How to run each coaching session for maximum client progress
+3. Accountability systems that keep clients engaged and on track
+4. How to collect testimonials and case studies during and after the program
+5. What to include in my welcome/onboarding package
+
+Format as a program blueprint with weekly structure.`},
+    {label:"Testimonials & Social Proof System",sub:"Build credibility that sells for you",text:`You are a marketing expert for coaches and consultants. Help me build social proof fast — even without existing clients.
+
+My niche: [INSERT FROM PROMPT 1]
+Starting situation: ${a.Q9}
+Time available: ${a.Q2}
+
+Give me:
+1. How to get my first testimonial before I have any paying clients (3 specific methods)
+2. The exact questions to ask clients for a powerful testimonial
+3. How to turn 1 case study into content for 5 different platforms
+4. Where to display social proof to maximize conversion
+5. How to build authority through content without needing a massive following
+
+Format as a credibility-building playbook with specific tactics.`},
+    {label:"Scale Beyond 1-to-1",sub:"Build systems that multiply your income",text:`You are a business scaling coach. Help me scale my coaching/consulting income beyond trading time for money.
+
+Current situation:
+- Service: [INSERT FROM PROMPT 1]
+- Revenue goal: ${a.Q1}
+- Time available: ${a.Q2}
+
+Give me:
+1. When and how to transition from 1:1 to group coaching (with pricing strategy)
+2. How to create a digital product from my existing coaching content
+3. How to build a waitlist and referral system that fills my calendar automatically
+4. The role of a newsletter or content platform in scaling my consulting income
+5. 6-month revenue milestone roadmap from $3k to $15k/month
+
+Format as a scaling roadmap with specific milestones and decisions.`},
+  ],
+  DP:(a)=>[
+    {label:"Product Idea Validation",sub:"Find what people actually want to buy",text:`You are a digital product business expert. Help me identify and validate a profitable digital product idea.
+
+My situation:
+- Goal: ${a.Q1}
+- Skills/interests: ${a.Q7}
+- Time available: ${a.Q2}
+- Budget: ${a.Q4}
+- AI comfort: ${a.Q10}
+
+Give me:
+1. A framework to identify skills or knowledge I can productize
+2. 5 specific digital product types ranked by difficulty vs profitability
+3. How to validate an idea before spending time building it
+4. 3 specific product ideas based on my skills profile
+5. How to check if a niche is profitable (tools and signals to look for)
+
+Format as a research framework with real examples and specific tools.`},
+    {label:"Product Creation Blueprint",sub:"Build your first product in 2 weeks",text:`You are a digital product creation coach. Help me build my first digital product fast.
+
+Product type: [INSERT FROM PROMPT 1]
+Niche: [INSERT FROM PROMPT 1]
+Time available: ${a.Q2}
+Budget: ${a.Q4}
+
+Give me:
+1. A 14-day creation plan with specific daily tasks
+2. The tools I need to build, design, and deliver this product (free and paid options)
+3. How to decide on scope — what to include vs leave for version 2
+4. How to price my product (anchoring, tiers, one-time vs subscription)
+5. The minimum viable version I can launch and improve later
+
+Format as a creation roadmap with daily tasks and tool recommendations.`},
+    {label:"Launch & Traffic Strategy",sub:"Get your first sales without a big audience",text:`You are a digital product launch strategist. Help me make my first sales even without an existing audience.
+
+Product: [INSERT FROM PROMPT 1]
+Niche: [INSERT FROM PROMPT 1]
+Budget for marketing: ${a.Q4}
+Time available: ${a.Q2}
+
+Give me:
+1. The 3 best platforms to sell my product (with pros/cons and setup guidance)
+2. How to drive traffic with zero audience (5 specific tactics)
+3. A launch week action plan to maximize initial sales
+4. How to use SEO, Pinterest, or YouTube to build long-term organic traffic
+5. The email sequence I should set up from day one
+
+Format as a launch playbook with specific platforms, tactics, and timelines.`},
+    {label:"Email List & Audience Growth",sub:"Build the asset that compounds forever",text:`You are an email marketing expert for digital product creators. Help me build and monetize an email list.
+
+My niche: [INSERT FROM PROMPT 1]
+Product: [INSERT FROM PROMPT 1]
+Time available: ${a.Q2}
+
+Give me:
+1. The perfect lead magnet idea to grow my list fast
+2. How to set up my email welcome sequence (write the first email for me)
+3. The weekly email format that builds trust and drives sales
+4. How to promote my product to my list without being spammy
+5. Milestone goals: 100 subscribers, 500, 1000 — what changes at each stage
+
+Format as an email strategy guide with templates and sequences.`},
+    {label:"Passive Income Scale Roadmap",sub:"From first sale to automated income",text:`You are a passive income business strategist. Give me a roadmap to scale my digital product business.
+
+Starting point:
+- Product: [INSERT FROM PROMPT 1]
+- Goal: ${a.Q1}
+- Time available: ${a.Q2}
+
+Give me:
+1. Month 1: First 10 sales (specific acquisition tactics)
+2. Month 2: Build the email funnel and automate revenue
+3. Month 3: Add a second product or upsell to increase revenue per customer
+4. Month 4–6: Hit $3k–$5k/month with systems and traffic running
+5. The metrics to track weekly and what good looks like at each stage
+
+Format as a milestone roadmap with specific targets and tactics for each phase.`},
+  ],
+  AA:(a)=>[
+    {label:"Model Selection & Niche Research",sub:"FBA vs Affiliate — and finding your niche",text:`You are an Amazon FBA and affiliate marketing expert. Help me decide the best path and find my niche.
+
+My situation:
+- Goal: ${a.Q1}
+- Budget: ${a.Q4}
+- Time available: ${a.Q2}
+- Risk tolerance: ${a.Q3}
+- Skills: ${a.Q7}
+
+Give me:
+1. Should I start with Amazon FBA, affiliate marketing, or a hybrid? (be direct based on my budget)
+2. The criteria for a winning FBA product OR a profitable affiliate niche
+3. Top 3 niches I should research first based on my profile
+4. The tools I need for research (specific names and whether free or paid)
+5. How to validate my niche before committing time and money
+
+Format as a decision framework with specific recommendations for my situation.`},
+    {label:"Product Sourcing & Setup",sub:"Find your product and get it listed",text:`You are an Amazon FBA supply chain expert. Help me source my first product and set up my listing.
+
+Product niche: [INSERT FROM PROMPT 1]
+Budget: ${a.Q4}
+Timeline goal: as fast as possible
+
+Give me:
+1. How to find and vet suppliers on Alibaba (step-by-step)
+2. What to include in my first supplier inquiry message (write the template)
+3. How to calculate if a product is profitable (include the formula with all cost factors)
+4. What makes a winning Amazon listing (title, bullets, images, A+ content)
+5. The biggest mistakes new FBA sellers make and how to avoid them
+
+Format as a sourcing and listing checklist with specific guidance.`},
+    {label:"Launch & Review Strategy",sub:"Get ranked and get reviews fast",text:`You are an Amazon listing launch strategist. Help me get my product ranked and collecting reviews.
+
+Product: [INSERT FROM PROMPT 1]
+Budget for launch: ${a.Q4}
+Marketplace: Amazon.com
+
+Give me:
+1. The step-by-step launch strategy for a new product (first 30 days)
+2. How to get the first 10–20 reviews legally and fast
+3. How to run PPC campaigns as a beginner (structure, budgets, targets)
+4. How to monitor and respond to competitor moves
+5. The metrics to track daily and weekly during launch
+
+Format as a launch playbook with specific daily actions for weeks 1–4.`},
+    {label:"Affiliate Content Strategy",sub:"Build content that earns commissions",text:`You are an affiliate marketing content strategist. Help me build content that generates consistent commissions.
+
+Niche: [INSERT FROM PROMPT 1]
+Platform preference: blog, YouTube, or social
+Budget: ${a.Q4}
+Time available: ${a.Q2}
+
+Give me:
+1. The content types that convert best for affiliate income (with examples)
+2. How to structure a review or comparison article that ranks and converts
+3. The affiliate programs with the best commissions in my niche
+4. How to build an email list alongside my content to increase earnings
+5. Realistic timeline from zero to $1k/month in affiliate income
+
+Format as a content strategy guide with specific templates and programs.`},
+    {label:"Scale & Automation Roadmap",sub:"Build a business that runs without you",text:`You are an e-commerce and affiliate scale strategist. Help me build systems that let this business run without me.
+
+Current model: [INSERT FROM PROMPT 1 — FBA or Affiliate]
+Niche: [INSERT FROM PROMPT 1]
+Time available: ${a.Q2}
+Revenue goal: ${a.Q1}
+
+Give me:
+1. What to automate first (tools and SOPs)
+2. When to hire a VA and what tasks to delegate first
+3. How to expand product lines or content without proportionally more work
+4. Month 1, 3, and 6 revenue milestones with specific targets
+5. The biggest scaling mistakes and how to avoid them
+
+Format as a scaling roadmap with automation priorities and revenue checkpoints.`},
+  ],
+  AI:(a)=>[
+    {label:"AI Service Positioning",sub:"Define exactly what you offer and who needs it",text:`You are an AI business strategist. Help me identify the best AI service to offer in 2025.
+
+My situation:
+- Goal: ${a.Q1}
+- Time available: ${a.Q2}
+- Budget: ${a.Q4}
+- Technical skills: ${a.Q7}
+- AI comfort: ${a.Q10}
+- Client preference: ${a.Q6}
+
+Give me:
+1. The top 5 AI services businesses are paying for right now (with rate ranges)
+2. The single best service for me based on my profile
+3. The ideal client profile — what type of business needs this most
+4. My positioning statement (one sentence that makes prospects say "I need that")
+5. How to learn what I need to know in 2 weeks or less
+
+Format as a positioning guide with specific services, rates, and learning resources.`},
+    {label:"Skills & Tools Setup",sub:"Learn what you need, fast",text:`You are an AI tools and automation expert. Help me get skilled up and set up to deliver my AI service.
+
+AI service I'm offering: [INSERT FROM PROMPT 1]
+Target client: [INSERT FROM PROMPT 1]
+Time to learn: 2 weeks
+Budget: ${a.Q4}
+
+Give me:
+1. The exact tools I need to learn to deliver this service (specific names, free vs paid)
+2. A 14-day learning plan with daily tasks and resources
+3. How to build a proof-of-concept or demo I can show potential clients
+4. The portfolio piece I should create to demonstrate my skills
+5. Where to find free learning resources for each tool
+
+Format as a skill-up plan with daily tasks and specific resource links.`},
+    {label:"First Client Landing Strategy",sub:"Get paid before you feel ready",text:`You are a sales coach for AI service providers. Help me land my first paying client.
+
+My AI service: [INSERT FROM PROMPT 1]
+Target client: [INSERT FROM PROMPT 1]
+Time available: ${a.Q2}
+Budget: ${a.Q4}
+
+Give me:
+1. The 3 fastest ways to find businesses that need my AI service
+2. A cold outreach message that highlights the ROI of my service (write the actual message)
+3. How to price my first project (hourly vs project vs retainer)
+4. How to run a discovery call and identify exactly what to build
+5. How to deliver a first project that guarantees a testimonial
+
+Format as a client acquisition playbook with real scripts and pricing guidance.`},
+    {label:"Service Delivery & Systemization",sub:"Deliver fast and build reusable systems",text:`You are an AI automation and delivery expert. Help me build a repeatable delivery system for my AI service.
+
+Service: [INSERT FROM PROMPT 1]
+Clients I serve: [INSERT FROM PROMPT 1]
+Time per week: ${a.Q2}
+
+Give me:
+1. A standard delivery process for my service (from kickoff to handoff)
+2. How to document and templatize my work so each project takes less time
+3. The tools I need to manage client projects and communication
+4. How to build reusable AI workflows or prompts that I can deploy for multiple clients
+5. How to package my work so clients understand and value what they're getting
+
+Format as a delivery operations guide with checklists and process templates.`},
+    {label:"Agency Growth Roadmap",sub:"From freelance AI to a real AI business",text:`You are an AI business scale strategist. Help me grow from solo AI freelancer to a scalable AI agency or product.
+
+Current service: [INSERT FROM PROMPT 1]
+Niche: [INSERT FROM PROMPT 1]
+Time available: ${a.Q2}
+Revenue goal: ${a.Q1}
+
+Give me:
+1. Month 1: Land first 2 clients (specific targets and actions)
+2. Month 2: Systemize and land 2 more (delegation and efficiency)
+3. Month 3: Hit $5k/month and build referral engine
+4. Month 4–6: Choose a path — grow agency OR productize into a SaaS/tool
+5. How to stay ahead as AI tools evolve rapidly
+
+Format as a growth roadmap with revenue milestones and key decision points at each stage.`},
+  ],
+};
+
+// ── STATE ─────────────────────────────────────────────────────────────────
+let currentQ = 0;
+const answers = {};
+
+// ── QUIZ ──────────────────────────────────────────────────────────────────
+function startQuiz() {
+  document.getElementById('hero').style.display = 'none';
+  const quiz = document.getElementById('quiz');
+  quiz.style.display = 'block';
+  buildDots();
+  renderQuestion();
+}
+
+function buildDots() {
+  const wrap = document.getElementById('progressDots');
+  wrap.innerHTML = '';
+  questions.forEach((_,i) => {
+    const d = document.createElement('div');
+    d.className = 'dot-step'; d.id = 'dot-'+i;
+    wrap.appendChild(d);
+  });
+}
+
+function updateDots() {
+  questions.forEach((_,i) => {
+    const d = document.getElementById('dot-'+i);
+    if (!d) return;
+    d.className = 'dot-step'+(i<currentQ?' done':i===currentQ?' active':'');
+  });
+}
+
+function renderQuestion() {
+  updateDots();
+  const q = questions[currentQ];
+  document.getElementById('questionCounter').textContent = 'Question '+(currentQ+1)+' of '+questions.length;
+  document.getElementById('questionText').textContent = q.question;
+  const container = document.getElementById('optionsContainer');
+  container.innerHTML = '';
+  // Multi-select hint
+  if (q.multi) {
+    const hint = document.createElement('div');
+    hint.className = 'multi-hint';
+    hint.textContent = 'Select up to '+q.maxSelect+' that apply';
+    container.appendChild(hint);
+  }
+  q.options.forEach(opt => {
+    const btn = document.createElement('button');
+    const sel = q.multi
+      ? (Array.isArray(answers[q.id]) && answers[q.id].includes(opt.value))
+      : answers[q.id]===opt.value;
+    btn.className = 'option'+(sel?' selected':'');
+    btn.innerHTML = '<span class="option-letter"><span class="option-letter-char">'+opt.value+'</span></span><span class="option-label">'+opt.label+'</span>';
+    btn.onclick = () => selectAnswer(opt.value);
+    container.appendChild(btn);
+  });
+  document.getElementById('btnBack').style.visibility = currentQ===0?'hidden':'visible';
+  updateNextBtn();
+  const wrap = document.getElementById('questionWrap');
+  wrap.style.animation = 'none'; void wrap.offsetWidth; wrap.style.animation = 'fadeIn .3s ease';
+}
+
+function selectAnswer(value) {
+  const q = questions[currentQ];
+  if (q.multi) {
+    let cur = Array.isArray(answers[q.id]) ? [...answers[q.id]] : [];
+    if (cur.includes(value)) {
+      cur = cur.filter(v=>v!==value);
+    } else {
+      if (cur.length < q.maxSelect) cur.push(value);
+      else { cur.shift(); cur.push(value); } // replace oldest if maxed
+    }
+    answers[q.id] = cur;
+    document.querySelectorAll('.option:not(.multi-hint)').forEach((el,i) => {
+      // offset by 1 because of hint div — but hint isn't .option so forEach is fine
+      el.classList.toggle('selected', cur.includes(q.options[i]?.value));
+    });
+  } else {
+    answers[q.id] = value;
+    document.querySelectorAll('.option').forEach((el,i) => {
+      el.classList.toggle('selected', q.options[i]?.value===value);
+    });
+  }
+  updateNextBtn();
+}
+
+function updateNextBtn() {
+  const q = questions[currentQ];
+  const btn = document.getElementById('btnNext');
+  const has = q.multi ? (Array.isArray(answers[q.id]) && answers[q.id].length>0) : !!answers[q.id];
+  btn.classList.toggle('active', has);
+  btn.textContent = currentQ===questions.length-1?'See My Results →':'Next →';
+}
+
+function nextQuestion() {
+  if (!answers[questions[currentQ].id]) return;
+  if (currentQ<questions.length-1) { currentQ++; renderQuestion(); }
+  else showResult();
+}
+function prevQuestion() { if (currentQ>0) { currentQ--; renderQuestion(); } }
+
+// ── SCORING ───────────────────────────────────────────────────────────────
+function calculateResult() {
+  const totals = {PB:0,AA:0,DP:0,CO:0,FR:0,SM:0,DS:0,AI:0};
+  for (const [qid,ans] of Object.entries(answers)) {
+    // Handle multi-select (arrays) — average the scores across selections
+    if (Array.isArray(ans)) {
+      const validScores = ans.map(v=>scoring[qid]?.[v]).filter(Boolean);
+      if (validScores.length) {
+        for (const k of Object.keys(totals)) {
+          totals[k] += validScores.reduce((sum,s)=>sum+(s[k]||0),0) / validScores.length;
+        }
+      }
+    } else {
+      const s = scoring[qid]?.[ans];
+      if (s) for (const k of Object.keys(totals)) totals[k] += s[k]||0;
+    }
+  }
+  const norm = {};
+  for (const k of Object.keys(totals)) norm[k] = Math.max(0, Math.round(totals[k]));
+  const winner = Object.entries(norm).sort((a,b)=>b[1]-a[1])[0][0];
+  return {totals:norm, winner};
+}
+
+// ── RESULT ────────────────────────────────────────────────────────────────
+function showResult() {
+  document.getElementById('quiz').style.display = 'none';
+  const resultEl = document.getElementById('result');
+  resultEl.style.display = 'block';
+
+  const {totals,winner} = calculateResult();
+  const model = models[winner];
+  const maxScore = Math.max(...Object.values(totals));
+
+  // Build answer labels (handle multi-select arrays)
+  const a = {};
+  for (const [k,v] of Object.entries(answers)) {
+    if (Array.isArray(v)) {
+      a[k] = v.map(val => AL[k]?.[val] || val).join(' and ');
+    } else {
+      a[k] = AL[k]?.[v] || v;
+    }
+  }
+  const pa = {Q1:a.Q1,Q2:a.Q2,Q3:a.Q3,Q4:a.Q4,Q5:a.Q5,Q6:a.Q6,Q7:a.Q7||'building and growing',Q8:a.Q8,Q9:a.Q9,Q10:a.Q10};
+  const chain = promptChains[winner](pa);
+
+  // Build score rows
+  const scoreHTML = Object.entries(totals).sort((a,b)=>b[1]-a[1]).map(([key,score])=>
+    '<div class="score-row"><div class="score-model">'+modelNames[key]+'</div>'+
+    '<div class="score-bar-wrap"><div class="score-bar'+(key===winner?' winner':'')+'" style="width:'+(maxScore>0?Math.round((score/maxScore)*100):0)+'%"></div></div>'+
+    '<div class="score-num">'+score+'</div></div>'
+  ).join('');
+
+  // Build prompt chain HTML — prompt 1 free, 2-5 locked
+  const GUMROAD_URL = 'https://YOUR-GUMROAD-LINK-HERE'; // ← swap this when you publish
+  const freePrompt = chain[0];
+  const lockedPrompts = chain.slice(1);
+
+  const freeHTML =
+    '<div class="prompt-item">'+
+      '<div class="prompt-item-header" onclick="togglePrompt(0)">'+
+        '<div class="prompt-item-left">'+
+          '<div class="prompt-num">1</div>'+
+          '<div><div class="prompt-label">'+freePrompt.label+'</div><div class="prompt-sublabel">'+freePrompt.sub+'</div></div>'+
+        '</div>'+
+        '<span class="prompt-toggle" id="toggle-0">▾</span>'+
+      '</div>'+
+      '<div class="prompt-body" id="body-0">'+
+        '<div class="prompt-box" id="pbox-0">'+escapeHtml(freePrompt.text)+'</div>'+
+        '<button class="btn-copy" id="cbtn-0" onclick="copyOne(0)">📋 Copy Prompt 1</button>'+
+      '</div>'+
+    '</div>';
+
+  const lockedHTML = lockedPrompts.map((p,i)=>
+    '<div class="prompt-locked">'+
+      '<div class="prompt-locked-inner">'+
+        '<div class="prompt-item">'+
+          '<div class="prompt-item-header">'+
+            '<div class="prompt-item-left">'+
+              '<div class="prompt-num">'+(i+2)+'</div>'+
+              '<div><div class="prompt-label">'+p.label+'</div><div class="prompt-sublabel">'+p.sub+'</div></div>'+
+            '</div>'+
+            '<span class="prompt-toggle">▾</span>'+
+          '</div>'+
+          '<div style="padding:14px 18px 18px;"><div class="prompt-box" style="max-height:80px;">'+escapeHtml(p.text.substring(0,120))+'...</div></div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="prompt-lock-overlay">'+
+        '<div class="lock-icon">🔒</div>'+
+        '<div class="lock-label">Prompt '+(i+2)+' Locked</div>'+
+        '<div class="lock-sub">Unlock the full chain to access this prompt</div>'+
+      '</div>'+
+    '</div>'
+  ).join('');
+
+  const paywallHTML =
+    '<div class="paywall-cta">'+
+      '<div class="paywall-eyebrow">🚀 Unlock Your Full Launch System</div>'+
+      '<div class="paywall-title">Get All 5 Custom Prompts + The Complete Guide</div>'+
+      '<div class="paywall-desc">Your free result shows your best model. The full prompt chain gives you a complete AI-powered launch system — strategy, action plan, first week, monetization, and 90-day roadmap — all personalized to your answers.</div>'+
+      '<div class="paywall-features">'+
+        '<div class="paywall-feature"><span class="check">✓</span> Prompts 2–5 fully unlocked & copyable</div>'+
+        '<div class="paywall-feature"><span class="check">✓</span> Step-by-step guide on how to use the chain</div>'+
+        '<div class="paywall-feature"><span class="check">✓</span> "Copy All" button to grab everything at once</div>'+
+        '<div class="paywall-feature"><span class="check">✓</span> Personalized to your exact quiz answers</div>'+
+        '<div class="paywall-feature"><span class="check">✓</span> Works with ChatGPT, Claude, or any AI</div>'+
+      '</div>'+
+      '<a class="btn-unlock" href="'+GUMROAD_URL+'" target="_blank">Unlock Full Prompt Chain — $17 →</a>'+
+      '<div class="paywall-note">One-time purchase · Instant access · 30-day refund guarantee</div>'+
+    '</div>';
+
+  const howToGuideHTML =
+    '<div class="how-to-guide">'+
+      '<h3>How To Use Your Prompt Chain</h3>'+
+      '<div class="how-to-step">'+
+        '<div class="how-to-num">1</div>'+
+        '<div class="how-to-content">'+
+          '<div class="how-to-title">Open ChatGPT or Claude</div>'+
+          '<div class="how-to-desc">Start a fresh conversation. Use GPT-4o or Claude Sonnet for best results — these are smart enough to give you specific, actionable output (not just generic advice).</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="how-to-step">'+
+        '<div class="how-to-num">2</div>'+
+        '<div class="how-to-content">'+
+          '<div class="how-to-title">Run the prompts in order — don\'t skip</div>'+
+          '<div class="how-to-desc">Each prompt builds on the last. Prompt 1 sets your strategy and niche. Prompts 2–5 use that output as context. Copy the key decisions from each response and paste them into the next prompt where it says [INSERT FROM PROMPT 1].</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="how-to-step">'+
+        '<div class="how-to-num">3</div>'+
+        '<div class="how-to-content">'+
+          '<div class="how-to-title">Push back and get specific</div>'+
+          '<div class="how-to-desc">If a response is too vague, reply: "Be more specific. Give me exact examples, real numbers, and actual steps I can take today." The AI will always go deeper if you push.</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="how-to-step">'+
+        '<div class="how-to-num">4</div>'+
+        '<div class="how-to-content">'+
+          '<div class="how-to-title">Save your outputs somewhere</div>'+
+          '<div class="how-to-desc">Copy each response into a Notion doc, Google Doc, or Notes app as you go. By the end of Prompt 5 you\'ll have a complete, personalized business launch plan ready to execute.</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="how-to-step">'+
+        '<div class="how-to-num">5</div>'+
+        '<div class="how-to-content">'+
+          '<div class="how-to-title">Execute Day 1 tasks immediately</div>'+
+          '<div class="how-to-desc">Don\'t let perfect be the enemy of started. After Prompt 3 (First Week Blueprint), you\'ll have specific Day 1 tasks. Do at least one of them before you close your laptop today.</div>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+
+  resultEl.innerHTML =
+    '<div class="result-header result-anim">'+
+      '<div class="match-badge"><span class="star">★</span> Best Match For You</div>'+
+      '<span class="result-emoji">'+model.emoji+'</span>'+
+      '<div class="result-name">'+model.name+'</div>'+
+      '<div class="result-tagline">'+model.tagline+'</div>'+
+    '</div>'+
+    '<div class="tech-divider"><span class="tech-divider-icon">◆</span></div>'+
+    '<div class="glass-card"><h3>Why This Fits You</h3><p class="result-desc">'+model.description+'</p></div>'+
+    '<div class="stats-grid">'+
+      '<div class="stat-box"><div class="stat-label">Time to Revenue</div><div class="stat-value">'+model.timeToRevenue+'</div></div>'+
+      '<div class="stat-box"><div class="stat-label">Startup Cost</div><div class="stat-value">'+model.startupCost+'</div></div>'+
+      '<div class="stat-box"><div class="stat-label">Revenue Potential</div><div class="stat-value">'+model.revenuePotential+'</div></div>'+
+      '<div class="stat-box"><div class="stat-label">Difficulty</div><div class="stat-value">'+model.difficulty+'</div></div>'+
+    '</div>'+
+    '<div class="pros-cons">'+
+      '<div class="pros"><h3>✓ Pros</h3><ul>'+model.pros.map(p=>'<li>'+p+'</li>').join('')+'</ul></div>'+
+      '<div class="cons"><h3>✗ Cons</h3><ul>'+model.cons.map(c=>'<li>'+c+'</li>').join('')+'</ul></div>'+
+    '</div>'+
+    '<div class="next-steps-card"><h3>Your Next 3 Steps</h3>'+
+      model.nextSteps.map((s,i)=>'<div class="step"><div class="step-num">'+(i+1)+'</div><div class="step-text">'+s+'</div></div>').join('')+
+    '</div>'+
+    '<div class="score-breakdown"><h3>Score Breakdown — 8 Models</h3>'+scoreHTML+'</div>'+
+    '<div class="prompt-chain-wrap">'+
+      '<div class="prompt-chain-title">Your Custom AI Prompt Chain</div>'+
+      '<p class="prompt-chain-desc">Built around your exact quiz answers. Prompt 1 is free — unlock the full chain to get your complete AI-powered launch system.</p>'+
+      freeHTML+
+      lockedHTML+
+      paywallHTML+
+    '</div>'+
+    howToGuideHTML+
+    '<button class="btn-retake" onclick="location.reload()">↩ Retake Assessment</button>';
+
+  // Auto-open first prompt
+  togglePrompt(0);
+}
+
+function togglePrompt(i) {
+  const body = document.getElementById('body-'+i);
+  const tog = document.getElementById('toggle-'+i);
+  if (!body) return;
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  if (tog) tog.classList.toggle('open', !isOpen);
+}
+
+function copyOne(i) {
+  const box = document.getElementById('pbox-'+i);
+  if (!box) return;
+  navigator.clipboard.writeText(box.innerText).then(()=>{
+    const btn = document.getElementById('cbtn-'+i);
+    if (btn) { btn.classList.add('copied'); btn.textContent = '✓ Copied!'; setTimeout(()=>{ btn.classList.remove('copied'); btn.textContent = '📋 Copy Prompt '+(i+1); },2500); }
+  });
+}
+
+function copyAll() {
+  const boxes = [];
+  for (let i=0;i<5;i++) {
+    const box = document.getElementById('pbox-'+i);
+    if (box) boxes.push('── PROMPT '+(i+1)+' ──\n'+box.innerText);
+  }
+  navigator.clipboard.writeText(boxes.join('\n\n')).then(()=>{
+    const btn = document.getElementById('copyAllBtn');
+    if (btn) { btn.classList.add('copied'); btn.textContent = '✓ All Prompts Copied!'; setTimeout(()=>{ btn.classList.remove('copied'); btn.textContent = '📋 Copy All 5 Prompts'; },3000); }
+  });
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+document.addEventListener('keydown',e=>{
+  if (document.getElementById('quiz').style.display!=='block') return;
+  const q = questions[currentQ];
+  const match = q.options.find(o=>o.value.toLowerCase()===e.key.toLowerCase());
+  if (match) selectAnswer(match.value);
+  if (e.key==='Enter'&&answers[q.id]) nextQuestion();
+});
+</script>
+</body>
+</html>

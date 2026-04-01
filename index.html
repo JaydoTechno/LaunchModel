@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LaunchModel — Find Your Perfect Online Business</title>
+  <title>LaunchModel — Discover Your Best Online Business Model</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
@@ -40,6 +40,21 @@
 
     /* HERO */
     .hero { text-align:center; padding:90px 0 70px; }
+    /* EMAIL CAPTURE */
+    .email-overlay { position:fixed;inset:0;z-index:100;background:rgba(6,6,13,.88);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px; }
+    .email-modal { background:#0d0d1a;border:1px solid rgba(99,102,241,.3);border-radius:20px;padding:40px 36px;max-width:460px;width:100%;text-align:center;position:relative;box-shadow:0 0 60px rgba(99,102,241,.15); }
+    .email-modal::before { content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(99,102,241,.5),transparent);border-radius:20px 20px 0 0; }
+    .email-modal-emoji { font-size:48px;margin-bottom:16px;display:block; }
+    .email-modal h2 { font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:#f0f0f8;margin-bottom:8px;letter-spacing:-.01em; }
+    .email-modal p { font-size:14px;color:var(--text-dim);line-height:1.6;margin-bottom:24px; }
+    .email-input-wrap { display:flex;flex-direction:column;gap:10px; }
+    .email-input { background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:13px 16px;font-size:14px;color:#f0f0f8;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s; }
+    .email-input:focus { border-color:rgba(99,102,241,.5); }
+    .email-input::placeholder { color:var(--text-muted); }
+    .btn-email-submit { background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;border:none;padding:14px;border-radius:10px;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 0 30px rgba(99,102,241,.3); }
+    .btn-email-submit:hover { transform:translateY(-2px);box-shadow:0 0 50px rgba(99,102,241,.5); }
+    .btn-skip { background:none;border:none;color:var(--text-muted);font-size:12px;cursor:pointer;margin-top:12px;font-family:'Inter',sans-serif;text-decoration:underline;transition:color .2s; }
+    .btn-skip:hover { color:var(--text-dim); }
     .hero-eyebrow { display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent3);border:1px solid rgba(6,182,212,.2);background:rgba(6,182,212,.06);padding:6px 16px;border-radius:100px;margin-bottom:32px;animation:fadeUp .5s ease both; }
     .pulse { width:6px;height:6px;border-radius:50%;background:var(--accent3);box-shadow:0 0 6px var(--accent3);animation:blink 1.5s ease-in-out infinite; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
@@ -190,8 +205,11 @@
     .how-to-content .how-to-title { font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px; }
     .how-to-content .how-to-desc { font-size:13px;color:var(--text-dim);line-height:1.6; }
 
-    .btn-retake { display:block;width:100%;background:transparent;border:1px solid rgba(255,255,255,.07);color:var(--text-muted);padding:14px;border-radius:14px;cursor:pointer;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;transition:all .15s;margin-top:10px;margin-bottom:40px;letter-spacing:.02em; }
+    .btn-retake { display:block;width:100%;background:transparent;border:1px solid rgba(255,255,255,.07);color:var(--text-muted);padding:14px;border-radius:14px;cursor:pointer;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;transition:all .15s;margin-top:10px;margin-bottom:24px;letter-spacing:.02em; }
     .btn-retake:hover { border-color:rgba(255,255,255,.15);color:var(--text); }
+    .site-footer { text-align:center;padding:0 0 40px;font-size:12px;color:var(--text-muted); }
+    .site-footer a { color:var(--text-muted);text-decoration:none;margin:0 8px; }
+    .site-footer a:hover { color:var(--text-dim); }
 
     @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
     @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
@@ -209,21 +227,21 @@
 <div class="app">
 
   <div class="hero" id="hero">
-    <div class="hero-eyebrow"><span class="pulse"></span> 8 Business Models Analyzed</div>
+    <div class="hero-eyebrow"><span class="pulse"></span> 8 Business Models · AI-Personalized</div>
     <h1>
-      <span class="line-white">Find Your Perfect</span>
-      <span class="line-grad">Online Business Model</span>
+      <span class="line-white">Stop Guessing. Start</span>
+      <span class="line-grad">The Right Business.</span>
     </h1>
-    <p>Answer 10 questions and get a personalized recommendation — plus a full AI prompt chain to help you launch fast.</p>
-    <button class="btn-start" onclick="startQuiz()">Start Free Assessment <span style="opacity:.7">→</span></button>
+    <p>Answer 10 questions and get your personalized online business model — plus a full AI prompt chain to help you launch in days, not months.</p>
+    <button class="btn-start" onclick="startQuiz()">Find My Business Model — Free <span style="opacity:.7">→</span></button>
     <div class="social-proof">
-      <span>⚡ 2 minutes</span>
+      <span>⚡ Takes 2 minutes</span>
       <div class="sep"></div>
-      <span>★ 4.9 rated</span>
-      <div class="sep"></div>
-      <span>🔒 No email required</span>
+      <span>🎯 Personalized to you</span>
       <div class="sep"></div>
       <span>🤖 AI prompts included</span>
+      <div class="sep"></div>
+      <span>🔒 No spam, ever</span>
     </div>
   </div>
 
@@ -241,6 +259,20 @@
   </div>
 
   <div class="result" id="result"></div>
+</div>
+
+<!-- EMAIL CAPTURE MODAL -->
+<div class="email-overlay" id="emailOverlay" style="display:none;">
+  <div class="email-modal">
+    <span class="email-modal-emoji">🎯</span>
+    <h2>Your Result Is Ready</h2>
+    <p>Drop your email and we’ll send you your personalized business model breakdown. No spam — ever.</p>
+    <div class="email-input-wrap">
+      <input class="email-input" type="email" id="emailInput" placeholder="your@email.com" />
+      <button class="btn-email-submit" onclick="submitEmail()">Show My Results →</button>
+    </div>
+    <button class="btn-skip" onclick="skipEmail()">Skip — just show my results</button>
+  </div>
 </div>
 
 <script>
@@ -1193,6 +1225,24 @@ function calculateResult() {
 // ── RESULT ────────────────────────────────────────────────────────────────
 function showResult() {
   document.getElementById('quiz').style.display = 'none';
+  document.getElementById('emailOverlay').style.display = 'flex';
+}
+
+function submitEmail() {
+  const email = document.getElementById('emailInput').value.trim();
+  if (email && email.includes('@')) {
+    localStorage.setItem('lm_email', email);
+    console.log('Email captured:', email);
+  }
+  skipEmail();
+}
+
+function skipEmail() {
+  document.getElementById('emailOverlay').style.display = 'none';
+  renderResult();
+}
+
+function renderResult() {
   const resultEl = document.getElementById('result');
   resultEl.style.display = 'block';
 
@@ -1348,7 +1398,8 @@ function showResult() {
       paywallHTML+
     '</div>'+
     howToGuideHTML+
-    '<button class="btn-retake" onclick="location.reload()">↩ Retake Assessment</button>';
+    '<button class="btn-retake" onclick="location.reload()">↩ Retake Assessment</button>'+
+    '<div class="site-footer"><span>© 2026 LaunchModel</span><a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms of Service</a><a href="mailto:support@launchmodel.ai">Contact</a></div>';
 
   // Auto-open first prompt
   togglePrompt(0);

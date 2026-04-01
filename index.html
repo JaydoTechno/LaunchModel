@@ -193,6 +193,9 @@
     .paywall-feature .check { color:#34d399;font-weight:700;font-size:14px;flex-shrink:0; }
     .btn-unlock { display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;padding:15px 36px;border-radius:12px;border:none;cursor:pointer;transition:all .2s;box-shadow:0 0 40px rgba(99,102,241,.3),inset 0 1px 0 rgba(255,255,255,.15);letter-spacing:.01em;text-decoration:none; }
     .btn-unlock:hover { transform:translateY(-2px);box-shadow:0 0 60px rgba(99,102,241,.5),inset 0 1px 0 rgba(255,255,255,.15); }
+    .btn-unlock:disabled { opacity:.6;cursor:not-allowed;transform:none; }
+    .unlock-loading { display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite; }
+    @keyframes spin { to{transform:rotate(360deg)} }
     .paywall-note { font-size:12px;color:var(--text-muted);margin-top:12px; }
 
     /* HOW TO USE GUIDE */
@@ -1232,13 +1235,16 @@ function submitEmail() {
   const email = document.getElementById('emailInput').value.trim();
   if (email && email.includes('@')) {
     localStorage.setItem('lm_email', email);
-    console.log('Email captured:', email);
   }
+  // Save answers before any potential Stripe redirect
+  localStorage.setItem('lm_answers', JSON.stringify(answers));
   skipEmail();
 }
 
 function skipEmail() {
   document.getElementById('emailOverlay').style.display = 'none';
+  // Save answers in case user pays and gets redirected back
+  localStorage.setItem('lm_answers', JSON.stringify(answers));
   renderResult();
 }
 
@@ -1270,7 +1276,7 @@ function renderResult() {
   ).join('');
 
   // Build prompt chain HTML — prompt 1 free, 2-5 locked
-  const GUMROAD_URL = 'https://launchmodel.gumroad.com/l/uywmj';
+  const STRIPE_PUBLISHABLE_KEY = 'REPLACE_WITH_STRIPE_PUBLISHABLE_KEY'; // set after Stripe account created
   const freePrompt = chain[0];
   const lockedPrompts = chain.slice(1);
 
@@ -1289,7 +1295,25 @@ function renderResult() {
       '</div>'+
     '</div>';
 
-  const lockedHTML = lockedPrompts.map((p,i)=>
+  const isUnlocked = window._isUnlocked === true;
+
+  const lockedHTML = isUnlocked
+    ? lockedPrompts.map((p,i)=>
+      '<div class="prompt-item">'+
+        '<div class="prompt-item-header" onclick="togglePrompt('+(i+2)+')">'+
+          '<div class="prompt-item-left">'+
+            '<div class="prompt-num">'+(i+2)+'</div>'+
+            '<div><div class="prompt-label">'+p.label+'</div><div class="prompt-sublabel">'+p.sub+'</div></div>'+
+          '</div>'+
+          '<span class="prompt-toggle" id="toggle-'+(i+2)+'">&#9662;</span>'+
+        '</div>'+
+        '<div class="prompt-body" id="body-'+(i+2)+'">'+
+          '<div class="prompt-box" id="pbox-'+(i+2)+'">'+escapeHtml(p.text)+'</div>'+
+          '<button class="btn-copy" id="cbtn-'+(i+2)+'" onclick="copyOne('+(i+2)+')">&#128203; Copy Prompt '+(i+2)+'</button>'+
+        '</div>'+
+      '</div>'
+    ).join('')
+    : lockedPrompts.map((p,i)=>
     '<div class="prompt-locked">'+
       '<div class="prompt-locked-inner">'+
         '<div class="prompt-item">'+
@@ -1323,7 +1347,7 @@ function renderResult() {
         '<div class="paywall-feature"><span class="check">✓</span> Personalized to your exact quiz answers</div>'+
         '<div class="paywall-feature"><span class="check">✓</span> Works with ChatGPT, Claude, or any AI</div>'+
       '</div>'+
-      '<a class="btn-unlock" href="'+GUMROAD_URL+'" target="_blank">Unlock Full Prompt Chain — $17 →</a>'+
+      '<button class="btn-unlock" id="stripeCheckoutBtn" onclick="startCheckout()">Unlock Full Prompt Chain — $17 →</button>'+
       '<div class="paywall-note">One-time purchase · Instant access · 30-day refund guarantee</div>'+
     '</div>';
 
@@ -1395,7 +1419,7 @@ function renderResult() {
       '<p class="prompt-chain-desc">Built around your exact quiz answers. Prompt 1 is free — unlock the full chain to get your complete AI-powered launch system.</p>'+
       freeHTML+
       lockedHTML+
-      paywallHTML+
+      (isUnlocked ? '' : paywallHTML)+
     '</div>'+
     howToGuideHTML+
     '<button class="btn-retake" onclick="location.reload()">↩ Retake Assessment</button>'+
@@ -1438,6 +1462,67 @@ function copyAll() {
 function escapeHtml(str) {
   return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
+
+// ── STRIPE CHECKOUT ──────────────────────────────────────────────────────
+async function startCheckout() {
+  const btn = document.getElementById('stripeCheckoutBtn');
+  if (!btn) return;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="unlock-loading"></span> Processing...';
+
+  try {
+    const res = await fetch('/api/create-checkout', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ answers })
+    });
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      throw new Error(data.error || 'Checkout failed');
+    }
+  } catch(err) {
+    btn.disabled = false;
+    btn.innerHTML = 'Unlock Full Prompt Chain — $17 →';
+    alert('Something went wrong: ' + err.message);
+  }
+}
+
+// Check if returning from successful Stripe payment
+(async function checkUnlock() {
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get('session_id');
+  const unlocked = params.get('unlocked');
+  if (!sessionId || !unlocked) return;
+
+  // Retrieve stored answers from localStorage (set before redirect)
+  const savedAnswers = JSON.parse(localStorage.getItem('lm_answers') || 'null');
+
+  try {
+    const res = await fetch('/api/verify-session', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ sessionId })
+    });
+    const data = await res.json();
+    if (data.unlocked) {
+      // Restore answers and show unlocked result
+      const unlockedAnswers = Object.keys(data.answers || {}).length > 0 ? data.answers : savedAnswers;
+      if (unlockedAnswers) {
+        Object.assign(answers, unlockedAnswers);
+      }
+      // Hide hero, show unlocked result
+      document.getElementById('hero').style.display = 'none';
+      window._isUnlocked = true;
+      renderResult();
+      // Clean URL
+      window.history.replaceState({}, '', '/');
+    }
+  } catch(e) {
+    console.error('Verify failed:', e);
+  }
+})();
 
 document.addEventListener('keydown',e=>{
   if (document.getElementById('quiz').style.display!=='block') return;

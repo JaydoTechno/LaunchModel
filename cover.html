@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1280px; height: 720px; overflow: hidden; background: #06060d; font-family: 'Inter', sans-serif; }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<canvas id="c" width="1280" height="720"></canvas>
+<script>
+const c = document.getElementById('c');
+const ctx = c.getContext('2d');
+
+// Background
+ctx.fillStyle = '#06060d';
+ctx.fillRect(0, 0, 1280, 720);
+
+// Grid
+ctx.strokeStyle = 'rgba(99,102,241,0.06)';
+ctx.lineWidth = 1;
+for(let x = 0; x < 1280; x += 48) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,720); ctx.stroke(); }
+for(let y = 0; y < 720; y += 48) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(1280,y); ctx.stroke(); }
+
+// Glow orbs
+let g1 = ctx.createRadialGradient(200, 200, 0, 200, 200, 400);
+g1.addColorStop(0, 'rgba(99,102,241,0.18)');
+g1.addColorStop(1, 'transparent');
+ctx.fillStyle = g1; ctx.fillRect(0, 0, 1280, 720);
+
+let g2 = ctx.createRadialGradient(1100, 500, 0, 1100, 500, 350);
+g2.addColorStop(0, 'rgba(139,92,246,0.15)');
+g2.addColorStop(1, 'transparent');
+ctx.fillStyle = g2; ctx.fillRect(0, 0, 1280, 720);
+
+let g3 = ctx.createRadialGradient(640, 360, 0, 640, 360, 300);
+g3.addColorStop(0, 'rgba(6,182,212,0.06)');
+g3.addColorStop(1, 'transparent');
+ctx.fillStyle = g3; ctx.fillRect(0, 0, 1280, 720);
+
+// Main card
+ctx.save();
+ctx.globalAlpha = 0.85;
+ctx.fillStyle = 'rgba(255,255,255,0.028)';
+roundRect(ctx, 120, 80, 1040, 560, 24);
+ctx.fill();
+ctx.strokeStyle = 'rgba(99,102,241,0.25)';
+ctx.lineWidth = 1;
+roundRect(ctx, 120, 80, 1040, 560, 24);
+ctx.stroke();
+ctx.restore();
+
+// Top line accent
+let topLine = ctx.createLinearGradient(120, 80, 1160, 80);
+topLine.addColorStop(0, 'transparent');
+topLine.addColorStop(0.5, 'rgba(99,102,241,0.6)');
+topLine.addColorStop(1, 'transparent');
+ctx.strokeStyle = topLine;
+ctx.lineWidth = 1.5;
+ctx.beginPath(); ctx.moveTo(120, 80); ctx.lineTo(1160, 80); ctx.stroke();
+
+// Badge
+ctx.save();
+ctx.fillStyle = 'rgba(6,182,212,0.1)';
+ctx.strokeStyle = 'rgba(6,182,212,0.3)';
+ctx.lineWidth = 1;
+roundRect(ctx, 492, 130, 296, 36, 100);
+ctx.fill(); ctx.stroke();
+ctx.fillStyle = '#06b6d4';
+ctx.font = '700 12px Inter';
+ctx.textAlign = 'center';
+ctx.letterSpacing = '0.12em';
+ctx.fillText('✦  AI-POWERED · PERSONALIZED  ✦', 640, 153);
+ctx.restore();
+
+// Main title "LaunchModel"
+let titleGrad = ctx.createLinearGradient(300, 200, 980, 200);
+titleGrad.addColorStop(0, '#ffffff');
+titleGrad.addColorStop(0.45, '#c4b5fd');
+titleGrad.addColorStop(1, '#67e8f9');
+ctx.fillStyle = titleGrad;
+ctx.font = '800 96px Space Grotesk';
+ctx.textAlign = 'center';
+ctx.fillText('LaunchModel', 640, 290);
+
+// Subtitle
+ctx.fillStyle = '#8b92a8';
+ctx.font = '500 28px Inter';
+ctx.fillText('Full AI Prompt Chain', 640, 345);
+
+// Divider
+let divGrad = ctx.createLinearGradient(340, 380, 940, 380);
+divGrad.addColorStop(0, 'transparent');
+divGrad.addColorStop(0.5, 'rgba(99,102,241,0.4)');
+divGrad.addColorStop(1, 'transparent');
+ctx.strokeStyle = divGrad;
+ctx.lineWidth = 1;
+ctx.beginPath(); ctx.moveTo(340, 380); ctx.lineTo(940, 380); ctx.stroke();
+
+// Feature pills
+const features = ['5 Personalized Prompts', 'Strategy → Revenue Roadmap', 'Works with ChatGPT & Claude'];
+features.forEach((f, i) => {
+  const x = 220 + i * 280;
+  ctx.save();
+  ctx.fillStyle = 'rgba(99,102,241,0.08)';
+  ctx.strokeStyle = 'rgba(99,102,241,0.2)';
+  ctx.lineWidth = 1;
+  roundRect(ctx, x, 405, 240, 44, 12);
+  ctx.fill(); ctx.stroke();
+  ctx.fillStyle = '#a5b4fc';
+  ctx.font = '600 13px Inter';
+  ctx.textAlign = 'center';
+  ctx.fillText(f, x + 120, 432);
+  ctx.restore();
+});
+
+// Price badge
+ctx.save();
+let priceBg = ctx.createLinearGradient(545, 490, 735, 490);
+priceBg.addColorStop(0, '#6366f1');
+priceBg.addColorStop(1, '#8b5cf6');
+ctx.fillStyle = priceBg;
+ctx.shadowColor = 'rgba(99,102,241,0.5)';
+ctx.shadowBlur = 30;
+roundRect(ctx, 545, 478, 190, 56, 14);
+ctx.fill();
+ctx.restore();
+
+ctx.fillStyle = '#ffffff';
+ctx.font = '800 26px Space Grotesk';
+ctx.textAlign = 'center';
+ctx.fillText('Unlock for $17', 640, 513);
+
+// Bottom tagline
+ctx.fillStyle = 'rgba(255,255,255,0.25)';
+ctx.font = '400 14px Inter';
+ctx.fillText('One-time purchase · Instant access · 30-day refund guarantee', 640, 590);
+
+// Corner decorations
+ctx.strokeStyle = 'rgba(99,102,241,0.3)';
+ctx.lineWidth = 2;
+// top left
+ctx.beginPath(); ctx.moveTo(140,100); ctx.lineTo(140,120); ctx.moveTo(140,100); ctx.lineTo(160,100); ctx.stroke();
+// top right  
+ctx.beginPath(); ctx.moveTo(1140,100); ctx.lineTo(1140,120); ctx.moveTo(1140,100); ctx.lineTo(1120,100); ctx.stroke();
+// bottom left
+ctx.beginPath(); ctx.moveTo(140,620); ctx.lineTo(140,600); ctx.moveTo(140,620); ctx.lineTo(160,620); ctx.stroke();
+// bottom right
+ctx.beginPath(); ctx.moveTo(1140,620); ctx.lineTo(1140,600); ctx.moveTo(1140,620); ctx.lineTo(1120,620); ctx.stroke();
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x+r, y);
+  ctx.lineTo(x+w-r, y);
+  ctx.quadraticCurveTo(x+w, y, x+w, y+r);
+  ctx.lineTo(x+w, y+h-r);
+  ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+  ctx.lineTo(x+r, y+h);
+  ctx.quadraticCurveTo(x, y+h, x, y+h-r);
+  ctx.lineTo(x, y+r);
+  ctx.quadraticCurveTo(x, y, x+r, y);
+  ctx.closePath();
+}
+
+// Export
+window._imageData = c.toDataURL('image/png');
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "name": "launchmodel",
+  "version": "1.0.0",
+  "description": "LaunchModel - Find Your Perfect Online Business Model",
+  "dependencies": {
+    "stripe": "^14.0.0"
+  }
+}
